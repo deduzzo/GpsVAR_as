@@ -1,0 +1,40 @@
+{
+  "gitSyncId": "6808fda53361a34d8231cac0_b718d358-258a-43a4-aa7b-e5e01a5acd2e",
+  "id": "Orari_orariFunctions",
+  "unpublishedCollection": {
+    "name": "orariFunctions",
+    "pageId": "Orari",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "livelli",
+        "value": "{\n  \"100\": \"SuperAdmin\",\n  \"1\": \"Utente\",\n  \"2\": \"Admin Distretto\",\n  \"3\": \"Amministratore\"\n}"
+      },
+      {
+        "name": "firstLoadingOk",
+        "value": "false"
+      },
+      {
+        "name": "userData",
+        "value": "null"
+      },
+      {
+        "name": "secret",
+        "value": "\"UxZ>69'[Tu<6\""
+      },
+      {
+        "name": "distrettiMap",
+        "value": "{\n  byUnique: {},\n  byId: {}\n}"
+      },
+      {
+        "name": "allConvenzionatiMap",
+        "value": "{}"
+      },
+      {
+        "name": "allPresidiMap",
+        "value": "{}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "animateLoading": true,
+  "bottomRow": 60,
+  "docUrl": "{{ homeFunctions.reportDistrettoPDF()}}",
+  "dynamicBindingPathList": [
+    {
+      "key": "docUrl"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "flexVerticalAlignment": "start",
+  "isCanvas": false,
+  "isLoading": false,
+  "isVisible": true,
+  "key": "0ogof19l37",
+  "leftColumn": 1,
+  "mobileBottomRow": 46,
+  "mobileLeftColumn": 1,
+  "mobileRightColumn": 25,
+  "mobileTopRow": 6,
+  "needsErrorInfo": false,
+  "parentColumnSpace": 15.8125,
+  "parentId": "gtvnyy1c8j",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 63,
+  "topRow": 6,
+  "type": "DOCUMENT_VIEWER_WIDGET",
+  "version": 1,
+  "widgetId": "hvjpkcqv1t",
+  "widgetName": "DocumentViewer1"
+}

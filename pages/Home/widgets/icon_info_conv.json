@@ -1,0 +1,44 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 12,
+  "boxShadow": "none",
+  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonVariant": "TERTIARY",
+  "dynamicBindingPathList": [
+    {
+      "key": "buttonColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "tooltip"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "iconName": "info-sign",
+  "isDisabled": false,
+  "isLoading": false,
+  "isVisible": false,
+  "key": "1cey81xjey",
+  "leftColumn": 52,
+  "minWidth": 50,
+  "mobileBottomRow": 13,
+  "mobileLeftColumn": 53,
+  "mobileRightColumn": 57,
+  "mobileTopRow": 9,
+  "needsErrorInfo": false,
+  "parentColumnSpace": 20.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "hug",
+  "rightColumn": 54,
+  "tooltip": "{{appsmith.store.infoConvSelezionato}}",
+  "topRow": 7,
+  "type": "ICON_BUTTON_WIDGET",
+  "version": 1,
+  "widgetId": "wvp76pezq7",
+  "widgetName": "icon_info_conv"
+}

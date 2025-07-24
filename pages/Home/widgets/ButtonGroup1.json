@@ -1,0 +1,254 @@
+{
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 5,
+  "boxShadow": "none",
+  "buttonVariant": "PRIMARY",
+  "childStylesheet": {
+    "button": {
+      "buttonColor": "{{appsmith.theme.colors.primaryColor}}"
+    }
+  },
+  "dynamicBindingPathList": [
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "groupButtons.groupButton1.buttonColor"
+    },
+    {
+      "key": "groupButtons.groupButtonezzecblo8e.buttonColor"
+    },
+    {
+      "key": "groupButtons.groupButton1.label"
+    },
+    {
+      "key": "groupButtons.groupButton2.label"
+    },
+    {
+      "key": "groupButtons.groupButton2.buttonColor"
+    },
+    {
+      "key": "groupButtons.groupButton3.label"
+    },
+    {
+      "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItem3lu8z6dvro.isVisible"
+    },
+    {
+      "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItemfl5urg45l0.backgroundColor"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItem3lu8z6dvro.isVisible"
+    },
+    {
+      "key": "groupButtons.groupButton1.menuItems.menuItemdosrhrn3k3.onClick"
+    },
+    {
+      "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItemd5a6jj4yv9.onClick"
+    }
+  ],
+  "dynamicTriggerPathList": [
+    {
+      "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItem3lu8z6dvro.onClick"
+    },
+    {
+      "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItemfl5urg45l0.onClick"
+    },
+    {
+      "key": "groupButtons.groupButton2.menuItems.menuItem0i6symxlfp.onClick"
+    },
+    {
+      "key": "groupButtons.groupButton1.menuItems.menuItemdosrhrn3k3.onClick"
+    },
+    {
+      "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItemd5a6jj4yv9.onClick"
+    }
+  ],
+  "groupButtons": {
+    "groupButton1": {
+      "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+      "buttonType": "MENU",
+      "disabledWhenInvalid": false,
+      "iconName": "user",
+      "id": "groupButton1",
+      "index": 0,
+      "isDisabled": false,
+      "isVisible": true,
+      "label": "Benvenuto {{homeFunctions.userData.username}}",
+      "menuItems": {
+        "menuItemdosrhrn3k3": {
+          "backgroundColor": "#ef4444",
+          "iconColor": "#fef9c3",
+          "iconName": "log-out",
+          "id": "menuItemdosrhrn3k3",
+          "index": 0,
+          "isDisabled": false,
+          "isVisible": true,
+          "label": "Logout",
+          "onClick": "{{homeFunctions.doLogout(\"Logout effettuato correttamente\", \"info\")}}",
+          "textColor": "#fef9c3",
+          "widgetId": "e1sfmupllu"
+        }
+      },
+      "placement": "CENTER",
+      "widgetId": ""
+    },
+    "groupButton2": {
+      "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+      "buttonType": "MENU",
+      "disabledWhenInvalid": false,
+      "iconName": "office",
+      "id": "groupButton2",
+      "index": 1,
+      "isDisabled": false,
+      "isVisible": true,
+      "label": "Distretto: {{ homeFunctions.userData.distrettoTxt }}",
+      "menuItems": {
+        "menuItem0i6symxlfp": {
+          "iconName": "changes",
+          "id": "menuItem0i6symxlfp",
+          "index": 0,
+          "isDisabled": false,
+          "isVisible": true,
+          "label": "Cambia",
+          "onClick": "{{showModal(modalCambioDistretto.name);}}",
+          "widgetId": "ppf1hpihwj"
+        }
+      },
+      "placement": "CENTER",
+      "widgetId": ""
+    },
+    "groupButton3": {
+      "buttonColor": "#e15615",
+      "buttonType": "SIMPLE",
+      "disabledWhenInvalid": false,
+      "iconName": "time",
+      "id": "groupButton3",
+      "index": 2,
+      "isDisabled": false,
+      "isVisible": true,
+      "label": "Periodo: {{homeFunctions.periodo ? (homeFunctions.getMeseItaliano(homeFunctions.periodo.mese) + \" \" + homeFunctions.periodo.anno + (homeFunctions.forzaAbilitazionePeriodo ? \" - Abilitato Temporaneamente\" :(!homeFunctions.periodoSolaLettura ? \" - Chiusura portale: \"  : \" - Portale chiuso il \") + moment(homeFunctions.periodo.data_fine).format(\"DD/MM/YYYY\") )) : \"Nessun Periodo di inserimento variabili attivo\"}}",
+      "menuItems": {
+        "menuItem1": {
+          "backgroundColor": "#FFFFFF",
+          "disabledWhenInvalid": false,
+          "id": "menuItem1",
+          "index": 0,
+          "isDisabled": false,
+          "isVisible": true,
+          "label": "First Option",
+          "onClick": "",
+          "widgetId": ""
+        },
+        "menuItem2": {
+          "backgroundColor": "#FFFFFF",
+          "disabledWhenInvalid": false,
+          "id": "menuItem2",
+          "index": 1,
+          "isDisabled": false,
+          "isVisible": true,
+          "label": "Second Option",
+          "onClick": "",
+          "widgetId": ""
+        },
+        "menuItem3": {
+          "backgroundColor": "#DD4B34",
+          "disabledWhenInvalid": false,
+          "iconAlign": "right",
+          "iconColor": "#FFFFFF",
+          "iconName": "trash",
+          "id": "menuItem3",
+          "index": 2,
+          "isDisabled": false,
+          "isVisible": true,
+          "label": "Delete",
+          "onClick": "",
+          "textColor": "#FFFFFF",
+          "widgetId": ""
+        }
+      },
+      "placement": "CENTER",
+      "widgetId": ""
+    },
+    "groupButtonezzecblo8e": {
+      "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+      "buttonType": "MENU",
+      "iconName": "more",
+      "id": "groupButtonezzecblo8e",
+      "index": 3,
+      "isDisabled": false,
+      "isSeparator": false,
+      "isVisible": true,
+      "itemType": "BUTTON",
+      "label": "Menu",
+      "menuItems": {
+        "menuItem3lu8z6dvro": {
+          "backgroundColor": "#cf4d10",
+          "iconColor": "#fde047",
+          "iconName": "pin",
+          "id": "menuItem3lu8z6dvro",
+          "index": 1,
+          "isDisabled": false,
+          "isVisible": "{{homeFunctions.userData.livello >= 2}}",
+          "label": "Admin Menu",
+          "onClick": "{{showModal(adminModal.name);}}",
+          "textColor": "#fef9c3",
+          "widgetId": "dro15j3voz"
+        },
+        "menuItemd5a6jj4yv9": {
+          "iconName": "refresh",
+          "id": "menuItemd5a6jj4yv9",
+          "index": 2,
+          "isDisabled": false,
+          "isVisible": true,
+          "label": "Aggiorna dati...",
+          "onClick": "{{ homeFunctions.initLoad()}}",
+          "widgetId": "ary1ue8vhj"
+        },
+        "menuItemfl5urg45l0": {
+          "backgroundColor": "{{appsmith.theme.colors.primaryColor}}",
+          "iconColor": "#fef9c3",
+          "iconName": "document-share",
+          "id": "menuItemfl5urg45l0",
+          "index": 0,
+          "isDisabled": false,
+          "isVisible": true,
+          "label": "Scarica Report",
+          "onClick": "{{homeFunctions.reportDistrettoPDF();\nshowModal(modalReportDistretto.name);}}",
+          "textColor": "#fef9c3",
+          "widgetId": "mtfcpbtkyb"
+        }
+      },
+      "placement": "CENTER",
+      "variant": "filled",
+      "widgetId": "kosv8nz6n6"
+    }
+  },
+  "isCanvas": false,
+  "isLoading": false,
+  "isVisible": true,
+  "key": "36kv9lx2oa",
+  "leftColumn": 2,
+  "minWidth": 450,
+  "mobileBottomRow": 22,
+  "mobileLeftColumn": 0,
+  "mobileRightColumn": 24,
+  "mobileTopRow": 18,
+  "needsErrorInfo": false,
+  "orientation": "horizontal",
+  "originalBottomRow": 22,
+  "originalTopRow": 18,
+  "parentColumnSpace": 20.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 60,
+  "topRow": 1,
+  "type": "BUTTON_GROUP_WIDGET",
+  "version": 1,
+  "widgetId": "kqrh7nuwk5",
+  "widgetName": "ButtonGroup1"
+}

@@ -1,0 +1,10 @@
+{
+  "accessor": [
+    "blob_util"
+  ],
+  "defs": "{\"!name\":\"LIB/blob_util\",\"blob_util\":{\"arrayBufferToBinaryString\":{\"!type\":\"fn()\",\"prototype\":{}},\"arrayBufferToBlob\":{\"!type\":\"fn()\",\"prototype\":{}},\"base64StringToBlob\":{\"!type\":\"fn()\",\"prototype\":{}},\"binaryStringToArrayBuffer\":{\"!type\":\"fn()\",\"prototype\":{}},\"binaryStringToBlob\":{\"!type\":\"fn()\",\"prototype\":{}},\"blobToArrayBuffer\":{\"!type\":\"fn()\",\"prototype\":{}},\"blobToBase64String\":{\"!type\":\"fn()\",\"prototype\":{}},\"blobToBinaryString\":{\"!type\":\"fn()\",\"prototype\":{}},\"blobToDataURL\":{\"!type\":\"fn()\",\"prototype\":{}},\"canvasToBlob\":{\"!type\":\"fn()\",\"prototype\":{}},\"createBlob\":{\"!type\":\"fn()\",\"prototype\":{}},\"createObjectURL\":{\"!type\":\"fn()\",\"prototype\":{}},\"dataURLToBlob\":{\"!type\":\"fn()\",\"prototype\":{}},\"imgSrcToBlob\":{\"!type\":\"fn()\",\"prototype\":{}},\"imgSrcToDataURL\":{\"!type\":\"fn()\",\"prototype\":{}},\"revokeObjectURL\":{\"!type\":\"fn()\",\"prototype\":{}}}}",
+  "name": "blob_util",
+  "uidString": "blob_util_https://cdn.jsdelivr.net/npm/blob-util@2.0.2/+esm",
+  "url": "https://cdn.jsdelivr.net/npm/blob-util@2.0.2/+esm",
+  "version": "2.0.2"
+}

@@ -1,0 +1,68 @@
+{
+  "gitSyncId": "6808fda53361a34d8231cac0_3de6aefc-81fa-48ce-bdae-185d9c48dfd3",
+  "id": "Home_homeFunctions",
+  "unpublishedCollection": {
+    "name": "homeFunctions",
+    "pageId": "Home",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "livelli",
+        "value": "{\n  \"100\": \"SuperAdmin\",\n  \"1\": \"Utente\",\n  \"2\": \"Admin Distretto\",\n  \"3\": \"Amministratore\"\n}"
+      },
+      {
+        "name": "firstLoadingOk",
+        "value": "false"
+      },
+      {
+        "name": "userData",
+        "value": "null"
+      },
+      {
+        "name": "distrettoCambiato",
+        "value": "false"
+      },
+      {
+        "name": "secret",
+        "value": "\"UxZ>69'[Tu<6\""
+      },
+      {
+        "name": "distrettiMap",
+        "value": "{\n  byUnique: {},\n  byId: {}\n}"
+      },
+      {
+        "name": "periodo",
+        "value": "null"
+      },
+      {
+        "name": "variabiliInserite",
+        "value": "[]"
+      },
+      {
+        "name": "allVariabiliMap",
+        "value": "{}"
+      },
+      {
+        "name": "allConvenzionatiMap",
+        "value": "{}"
+      },
+      {
+        "name": "filtraPerNomeUtente",
+        "value": "true"
+      },
+      {
+        "name": "periodoSolaLettura",
+        "value": "false"
+      },
+      {
+        "name": "forzaAbilitazionePeriodo",
+        "value": "false"
+      },
+      {
+        "name": "rowToRemove",
+        "value": "null"
+      }
+    ]
+  }
+}

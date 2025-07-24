@@ -1,0 +1,10 @@
+{
+  "accessor": [
+    "js_base"
+  ],
+  "defs": "{\"!name\":\"LIB/js_base\",\"js_base\":{\"Base64\":{\"version\":{\"!type\":\"string\"},\"VERSION\":{\"!type\":\"string\"},\"atob\":{\"!type\":\"fn()\"},\"atobPolyfill\":{\"!type\":\"fn()\"},\"btoa\":{\"!type\":\"fn()\"},\"btoaPolyfill\":{\"!type\":\"fn()\"},\"fromBase64\":{\"!type\":\"fn()\"},\"toBase64\":{\"!type\":\"fn()\"},\"encode\":{\"!type\":\"fn()\"},\"encodeURI\":{\"!type\":\"fn()\"},\"encodeURL\":{\"!type\":\"fn()\"},\"utob\":{\"!type\":\"fn()\"},\"btou\":{\"!type\":\"fn()\"},\"decode\":{\"!type\":\"fn()\"},\"isValid\":{\"!type\":\"fn()\"},\"fromUint8Array\":{\"!type\":\"fn()\"},\"toUint8Array\":{\"!type\":\"fn()\"},\"extendString\":{\"!type\":\"fn()\",\"prototype\":{}},\"extendUint8Array\":{\"!type\":\"fn()\",\"prototype\":{}},\"extendBuiltins\":{\"!type\":\"fn()\"}},\"VERSION\":{\"!type\":\"string\"},\"atob\":{\"!type\":\"fn()\"},\"atobPolyfill\":{\"!type\":\"fn()\"},\"btoa\":{\"!type\":\"fn()\"},\"btoaPolyfill\":{\"!type\":\"fn()\"},\"btou\":{\"!type\":\"fn()\"},\"decode\":{\"!type\":\"fn()\"},\"encode\":{\"!type\":\"fn()\"},\"encodeURI\":{\"!type\":\"fn()\"},\"encodeURL\":{\"!type\":\"fn()\"},\"extendBuiltins\":{\"!type\":\"fn()\"},\"extendString\":{\"!type\":\"fn()\",\"prototype\":{}},\"extendUint8Array\":{\"!type\":\"fn()\",\"prototype\":{}},\"fromBase64\":{\"!type\":\"fn()\"},\"fromUint8Array\":{\"!type\":\"fn()\"},\"isValid\":{\"!type\":\"fn()\"},\"toBase64\":{\"!type\":\"fn()\"},\"toUint8Array\":{\"!type\":\"fn()\"},\"utob\":{\"!type\":\"fn()\"},\"version\":{\"!type\":\"string\"}}}",
+  "name": "js_base",
+  "uidString": "js_base_https://cdn.jsdelivr.net/npm/js-base64@3.7.7/+esm",
+  "url": "https://cdn.jsdelivr.net/npm/js-base64@3.7.7/+esm",
+  "version": "3.7.7"
+}

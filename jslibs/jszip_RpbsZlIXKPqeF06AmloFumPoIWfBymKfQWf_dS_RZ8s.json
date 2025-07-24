@@ -1,0 +1,10 @@
+{
+  "accessor": [
+    "jszip"
+  ],
+  "defs": "{\"!name\":\"LIB/jszip\",\"jszip\":{\"!type\":\"fn()\",\"prototype\":{\"load\":{\"!type\":\"fn()\",\"prototype\":{}},\"forEach\":{\"!type\":\"fn()\",\"prototype\":{}},\"filter\":{\"!type\":\"fn()\",\"prototype\":{}},\"file\":{\"!type\":\"fn()\",\"prototype\":{}},\"folder\":{\"!type\":\"fn()\",\"prototype\":{}},\"remove\":{\"!type\":\"fn()\",\"prototype\":{}},\"generate\":{\"!type\":\"fn()\",\"prototype\":{}},\"generateInternalStream\":{\"!type\":\"fn()\",\"prototype\":{}},\"generateAsync\":{\"!type\":\"fn()\",\"prototype\":{}},\"generateNodeStream\":{\"!type\":\"fn()\",\"prototype\":{}},\"loadAsync\":{\"!type\":\"fn()\",\"prototype\":{}}},\"support\":{\"base64\":{\"!type\":\"bool\"},\"array\":{\"!type\":\"bool\"},\"string\":{\"!type\":\"bool\"},\"arraybuffer\":{\"!type\":\"bool\"},\"nodebuffer\":{\"!type\":\"bool\"},\"uint8array\":{\"!type\":\"bool\"},\"blob\":{\"!type\":\"bool\"},\"nodestream\":{\"!type\":\"bool\"}},\"defaults\":{\"base64\":{\"!type\":\"bool\"},\"binary\":{\"!type\":\"bool\"},\"dir\":{\"!type\":\"bool\"},\"createFolders\":{\"!type\":\"bool\"},\"date\":{\"!type\":\"?\"},\"compression\":{\"!type\":\"?\"},\"compressionOptions\":{\"!type\":\"?\"},\"comment\":{\"!type\":\"?\"},\"unixPermissions\":{\"!type\":\"?\"},\"dosPermissions\":{\"!type\":\"?\"}},\"version\":{\"!type\":\"string\"},\"loadAsync\":{\"!type\":\"fn()\",\"prototype\":{}},\"external\":{\"Promise\":{\"!type\":\"fn()\",\"prototype\":{\"then\":{\"!type\":\"fn()\"},\"catch\":{\"!type\":\"fn()\"},\"finally\":{\"!type\":\"fn()\"}},\"all\":{\"!type\":\"fn()\"},\"allSettled\":{\"!type\":\"fn()\"},\"any\":{\"!type\":\"fn()\"},\"race\":{\"!type\":\"fn()\"},\"resolve\":{\"!type\":\"fn()\"},\"reject\":{\"!type\":\"fn()\"},\"withResolvers\":{\"!type\":\"fn()\"},\"try\":{\"!type\":\"fn()\"}}}}}",
+  "name": "jszip",
+  "uidString": "jszip_https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm",
+  "url": "https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm",
+  "version": "3.10.1"
+}

@@ -1,0 +1,81 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "autoFocus": false,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 21,
+  "boxShadow": "none",
+  "defaultText": "",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "label"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "isDisabled"
+    },
+    {
+      "key": "isVisible"
+    },
+    {
+      "key": "isRequired"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "iconAlign": "left",
+  "iconName": "numerical",
+  "inputType": "NUMBER",
+  "isDisabled": "{{!variabileSelezionata.selectedOptionValue || !convenzionatoSelezionato.selectedOptionValue || (!homeFunctions.forzaAbilitazionePeriodo  && (!homeFunctions.periodo || homeFunctions.periodoSolaLettura))}}",
+  "isLoading": false,
+  "isRequired": "{{altriDati.isVisible}}",
+  "isVisible": "{{homeFunctions.allVariabiliMap[variabileSelezionata.selectedOptionValue][\"ALTRI_DATI\"] !== \"\"}}",
+  "key": "ebx0ad3v4t",
+  "label": "{{variabileSelezionata.selectedOptionValue ? ( homeFunctions.allVariabiliMap[variabileSelezionata.selectedOptionValue][\"ALTRI_DATI\"] !== \"\" ? homeFunctions.allVariabiliMap[variabileSelezionata.selectedOptionValue][\"ALTRI_DATI\"] : \"Altro\") : \"selezionare una variabile...\"}}",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelStyle": "",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 32,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 22,
+  "mobileLeftColumn": 19,
+  "mobileRightColumn": 39,
+  "mobileTopRow": 15,
+  "needsErrorInfo": false,
+  "originalBottomRow": 17,
+  "originalTopRow": 10,
+  "parentColumnSpace": 20.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "renderMode": "CANVAS",
+  "resetOnSubmit": true,
+  "responsiveBehavior": "fill",
+  "rightColumn": 38,
+  "shouldAllowAutofill": false,
+  "showStepArrows": false,
+  "topRow": 14,
+  "type": "INPUT_WIDGET_V2",
+  "version": 2,
+  "widgetId": "fjajx9krtv",
+  "widgetName": "altriDati"
+}

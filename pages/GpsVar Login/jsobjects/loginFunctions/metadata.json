@@ -1,0 +1,24 @@
+{
+  "gitSyncId": "6808fda53361a34d8231cac0_e4e1322b-fe78-41c1-8cf8-29d65e94da43",
+  "id": "GpsVar Login_loginFunctions",
+  "unpublishedCollection": {
+    "name": "loginFunctions",
+    "pageId": "GpsVar Login",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "defaultTab",
+        "value": "'Sign In'"
+      },
+      {
+        "name": "secret",
+        "value": "\"UxZ>69'[Tu<6\""
+      },
+      {
+        "name": "scope",
+        "value": "\"gpsvar\""
+      }
+    ]
+  }
+}
