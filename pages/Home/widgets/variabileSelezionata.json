@@ -65,7 +65,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 26,
   "serverSideFiltering": false,
-  "sourceData": "{{getVariabiliDistretto.data.map( (obj) =>{ return  {'label': obj.DESCRIZIONE, 'value': obj[\"#\"] } })}}",
+  "sourceData": "{{getVariabiliDistretto.data.map( (obj) =>{ return  {'label': obj.DESCRIZIONE +\" [\" + obj.ALIAS + \"]\", 'value': obj[\"#\"] } })}}",
   "topRow": 14,
   "type": "SELECT_WIDGET",
   "version": 1,

@@ -87,7 +87,7 @@ export default {
 
 	getConvenzionatoDescFromId: id => {
 		const conv = this.allConvenzionatiMap[id];
-		return `(${conv.CI}) ${conv.COGNOME} ${conv.NOME} - [${conv.RAPPORTO}]`;
+		return `(${conv.CI}) ${conv.COGNOME} ${conv.NOME} - ${conv.DATA_NAS} - [${conv.RAPPORTO}]`;
 	},
 
 	dataCompetenzaCongrua: () => {
