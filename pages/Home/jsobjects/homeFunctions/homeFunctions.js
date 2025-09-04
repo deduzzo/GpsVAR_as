@@ -21,6 +21,7 @@ export default {
 	periodoSolaLettura:false,
 	forzaAbilitazionePeriodo: false,
 	rowToRemove: null,
+	_verifyIntervalId: null, // <- ID del setInterval
 
 	/* =======================
 	   LOAD INIZIALE
@@ -42,6 +43,9 @@ export default {
 			await this.getVariabiliDistretto();    // 4
 			await this.getConvenzionatiMap();      // 5
 			await getDatiVarDistrettoPeriodo.run(); // 6
+			
+			// Avvio del controllo periodico del token ogni 5 minuti (es. 300 secondi)
+			this.startVerifyTokenInterval(60 * 5);
 		} catch (err) {
 			console.error("Errore in initLoad:", err);
 			showAlert("Si è verificato un errore nel caricamento iniziale", "error");
@@ -49,6 +53,30 @@ export default {
 
 			closeModal(caricamentoMdl.name);
 			this.firstLoadingOk = true;
+		}
+	},
+	
+	
+	/* =======================
+	   FUNZIONE CONTROLLO TOKEN PERIODICO
+	======================= */
+	startVerifyTokenInterval(secondi = 300) {
+		// Se esiste già un timer lo resetto
+		if (this._verifyIntervalId) clearInterval(this._verifyIntervalId);
+
+		this._verifyIntervalId = setInterval(() => {
+			const { expired } = this.verifyTokenExpires();
+			if (expired) {
+				clearInterval(this._verifyIntervalId);
+				this._verifyIntervalId = null;
+			}
+		}, secondi * 1000);
+	},
+
+	stopVerifyTokenInterval() {
+		if (this._verifyIntervalId) {
+			clearInterval(this._verifyIntervalId);
+			this._verifyIntervalId = null;
 		}
 	},
 
