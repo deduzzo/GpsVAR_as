@@ -36,7 +36,7 @@
       "key": "onOptionChange"
     }
   ],
-  "isDisabled": "{{ getAllConvenzionati.isLoading || (!homeFunctions.forzaAbilitazionePeriodo  && ( !homeFunctions.periodo || homeFunctions.periodoSolaLettura))}}",
+  "isDisabled": "{{ getAllConvenzionatiFiltered.isLoading || (!homeFunctions.forzaAbilitazionePeriodo  && ( !homeFunctions.periodo || homeFunctions.periodoSolaLettura))}}",
   "isFilterable": true,
   "isLoading": false,
   "isRequired": false,
@@ -68,7 +68,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 52,
   "serverSideFiltering": false,
-  "sourceData": "{{getAllConvenzionati.data.map( (obj) =>{ return  {'label': homeFunctions.getConvenzionatoDescFromId(obj.CI), 'value': obj.CI } })}}",
+  "sourceData": "{{getAllConvenzionatiFiltered.data.map( (obj) =>{ return  {'label': homeFunctions.getConvenzionatoDescFromId(obj.CI), 'value': obj.CI } })}}",
   "topRow": 5,
   "type": "SELECT_WIDGET",
   "version": 1,

@@ -1,6 +1,6 @@
 {
-  "gitSyncId": "6808fda53361a34d8231cac0_80114863-6e41-45af-965b-4ad412a8b1bc",
-  "id": "Home_getAllConvenzionati",
+  "gitSyncId": "6808fda53361a34d8231cac0_5d51a711-4a43-4db7-b5c9-5249b80d0b34",
+  "id": "Home_getAllConvenzionatiFiltered",
   "pluginId": "google-sheets-plugin",
   "pluginType": "SAAS",
   "unpublishedAction": {
@@ -32,18 +32,22 @@
           "data": "personale_convenzionato"
         },
         "sheetUrl": {
-          "data": "https://docs.google.com/spreadsheets/d/186jsr4bHqJ60W8_WEg_RJdu14jYVQ6RI8VRNVe80gWg/edit"
+          "componentData": "",
+          "data": "https://docs.google.com/spreadsheets/d/186jsr4bHqJ60W8_WEg_RJdu14jYVQ6RI8VRNVe80gWg/edit?gid=1741439655#gid=1741439655",
+          "viewType": "json"
         },
         "smartSubstitution": {
           "data": true
         },
         "sortBy": {
-          "data": [
+          "componentData": [
             {
-              "column": "",
+              "column": "COGNOME",
               "order": "Ascending"
             }
-          ]
+          ],
+          "data": "[\n\t{\n\t\t\"column\": \"COGNOME\",\n\t\t\"order\": \"Ascending\"\n\t}\n]",
+          "viewType": "json"
         },
         "tableHeaderIndex": {
           "data": "1"
@@ -52,7 +56,9 @@
           "data": {
             "children": [
               {
-                "condition": "LT"
+                "condition": "IN",
+                "key": "RAPPORTO",
+                "value": "{{homeFunctions.userData.categorieVariabiliAbilitate}}"
               }
             ],
             "condition": "AND"
@@ -69,10 +75,14 @@
       "name": "gpsvar_data",
       "pluginId": "google-sheets-plugin"
     },
-    "dynamicBindingPathList": [],
-    "name": "getAllConvenzionati",
+    "dynamicBindingPathList": [
+      {
+        "key": "formData.where.data.children[0].value"
+      }
+    ],
+    "name": "getAllConvenzionatiFiltered",
     "pageId": "Home",
-    "runBehaviour": "MANUAL",
+    "runBehaviour": "ON_PAGE_LOAD",
     "userSetOnLoad": false
   }
 }

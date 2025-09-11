@@ -48,6 +48,10 @@
         "value": "{}"
       },
       {
+        "name": "filteredConvenzionatiMap",
+        "value": "{}"
+      },
+      {
         "name": "filtraPerNomeUtente",
         "value": "true"
       },

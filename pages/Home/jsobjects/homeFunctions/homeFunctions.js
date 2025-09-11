@@ -17,6 +17,7 @@ export default {
 	variabiliInserite: [],
 	allVariabiliMap: {},
 	allConvenzionatiMap: {},
+	filteredConvenzionatiMap: {},
 	filtraPerNomeUtente: true,
 	periodoSolaLettura:false,
 	forzaAbilitazionePeriodo: false,
@@ -112,10 +113,19 @@ export default {
 		this.filtraPerNomeUtente = soloUtenteCorrente.isSwitchedOn;
 		getDatiVarDistrettoPeriodo.run();
 	},
+	getRapportoFromId: (id) => {
+		try {
+		return homeFunctions.allConvenzionatiMap[id.id_conv].RAPPORTO }
+		catch (ex) {return "-"}
+	},
 
 	getConvenzionatoDescFromId: id => {
+		try {
 		const conv = this.allConvenzionatiMap[id];
 		return `(${conv.CI}) ${conv.COGNOME} ${conv.NOME} - ${conv.DATA_NAS} - [${conv.RAPPORTO}]`;
+		} catch (ex) {
+			return id;
+		}
 	},
 
 	dataCompetenzaCongrua: () => {
@@ -163,7 +173,12 @@ export default {
 
 	async getConvenzionatiMap() {
 		this.allConvenzionatiMap = {};
+		this.filteredConvenzionatiMap = {};
+		await getAllConvenzionatiFiltered.run();
 		await getAllConvenzionati.run();
+		getAllConvenzionatiFiltered.data.forEach(c => {
+			this.filteredConvenzionatiMap[c["CI"]] = c;
+		});
 		getAllConvenzionati.data.forEach(c => {
 			this.allConvenzionatiMap[c["CI"]] = c;
 		});
