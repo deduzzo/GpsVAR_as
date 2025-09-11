@@ -72,7 +72,7 @@
     "dynamicBindingPathList": [],
     "name": "getAllConvenzionati",
     "pageId": "Home",
-    "runBehaviour": "MANUAL",
+    "runBehaviour": "AUTOMATIC",
     "userSetOnLoad": false
   }
 }

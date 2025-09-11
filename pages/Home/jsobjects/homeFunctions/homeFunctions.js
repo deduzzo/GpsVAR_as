@@ -115,7 +115,7 @@ export default {
 	},
 	getRapportoFromId: (id) => {
 		try {
-		return homeFunctions.allConvenzionatiMap[id.id_conv].RAPPORTO }
+		return this.allConvenzionatiMap[id.id_conv].RAPPORTO }
 		catch (ex) {return "-"}
 	},
 
