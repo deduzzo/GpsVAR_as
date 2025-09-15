@@ -305,6 +305,7 @@ export default {
 		}).add(1, 'month');
 		for (let riga of allData) {
 			const voceSplitted = riga["voce"].split("$");
+			const vocePulita = this.allVariabiliMap[riga["voce"]];
 			const periodoSplitted = riga["periodo"].split("_");
 			const competenzaSplitted = riga["competenza"].split("_");
 			const riferimentoVariabile = moment({
@@ -320,8 +321,8 @@ export default {
 				"ANNO": riferimentoStipendio.year(),
 				"MESE": parseInt(riferimentoStipendio.month()) +1,
 				"MENSILITA": mensilita[riferimentoStipendio.month()],
-				"VOCE": voceSplitted[0].replace("#",""),
-				"SUB": voceSplitted[1],
+				"VOCE": vocePulita.VOCE,
+				"SUB": vocePulita.SUB,
 				"ARR": "",
 				"QTA": this.allVariabiliMap[riga['voce']]['IMPORTO'] === "" ? valoreVariabileRow : "",
 				"IMP": this.allVariabiliMap[riga['voce']]['IMPORTO'] === "SI" ? valoreVariabileRow : "",
