@@ -1,0 +1,65 @@
+{
+  "accentColor": "{{appsmith.theme.colors.primaryColor}}",
+  "animateLoading": true,
+  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
+  "bottomRow": 11,
+  "boxShadow": "none",
+  "defaultOptionValue": "{{ ((options, serverSideFiltering) => ( \n  (() => {\n    let year = verificheFunctions.lastPeriodo.split(\"_\")[0];\n    const month = verificheFunctions.lastPeriodo.split(\"_\")[1] -1; // 0 = Gennaio, 11 = Dicembre\n    if (month === 0) {\n      // se siamo a Gennaio, il mese precedente è Dicembre dell'anno prima\n      year = year - 1;\n    }\n    return year.toString();\n  })()\n))(anno_rif.options, anno_rif.serverSideFiltering) }}",
+  "dynamicBindingPathList": [
+    {
+      "key": "accentColor"
+    },
+    {
+      "key": "borderRadius"
+    },
+    {
+      "key": "sourceData"
+    },
+    {
+      "key": "defaultOptionValue"
+    }
+  ],
+  "dynamicHeight": "FIXED",
+  "dynamicPropertyPathList": [
+    {
+      "key": "sourceData"
+    }
+  ],
+  "dynamicTriggerPathList": [],
+  "isDisabled": false,
+  "isFilterable": true,
+  "isLoading": false,
+  "isRequired": true,
+  "isVisible": true,
+  "key": "pibcyfkc1j",
+  "labelAlignment": "left",
+  "labelPosition": "Top",
+  "labelText": "Anno rif.",
+  "labelTextSize": "0.875rem",
+  "labelWidth": 5,
+  "leftColumn": 10,
+  "maxDynamicHeight": 9000,
+  "minDynamicHeight": 4,
+  "minWidth": 450,
+  "mobileBottomRow": 11,
+  "mobileLeftColumn": 1,
+  "mobileRightColumn": 21,
+  "mobileTopRow": 4,
+  "needsErrorInfo": false,
+  "optionLabel": "label",
+  "optionValue": "value",
+  "parentColumnSpace": 20.25,
+  "parentId": "0",
+  "parentRowSpace": 10,
+  "placeholderText": "Anno rif.",
+  "renderMode": "CANVAS",
+  "responsiveBehavior": "fill",
+  "rightColumn": 15,
+  "serverSideFiltering": false,
+  "sourceData": "{{ \n  (() => {\n    const currentYear = new Date().getFullYear();\n    return Array.from({ length: 5 }, (_, i) => {\n      const year = currentYear - i;\n      return {\n        label: year.toString(),\n        value: year.toString()\n      };\n    });\n  })()\n}}",
+  "topRow": 4,
+  "type": "SELECT_WIDGET",
+  "version": 1,
+  "widgetId": "za3whpto79",
+  "widgetName": "anno_rif"
+}

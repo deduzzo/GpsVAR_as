@@ -1,0 +1,44 @@
+{
+  "gitSyncId": "6808fda53361a34d8231cac0_a41ae385-3ed4-44b5-8b49-0a992d694e94",
+  "id": "Verifiche_verificheFunctions",
+  "unpublishedCollection": {
+    "name": "verificheFunctions",
+    "pageId": "Verifiche",
+    "pluginId": "js-plugin",
+    "pluginType": "JS",
+    "variables": [
+      {
+        "name": "current",
+        "value": "\"corrente\""
+      },
+      {
+        "name": "selected",
+        "value": "null"
+      },
+      {
+        "name": "sogliaPerc",
+        "value": "30"
+      },
+      {
+        "name": "differenzeData",
+        "value": "[]"
+      },
+      {
+        "name": "currData",
+        "value": "null"
+      },
+      {
+        "name": "precData",
+        "value": "null"
+      },
+      {
+        "name": "allConvenzionatiDataMap",
+        "value": "{}"
+      },
+      {
+        "name": "lastPeriodo",
+        "value": "getLastPeriodo.data[0].anno + \"_\" + getLastPeriodo.data[0].mese"
+      }
+    ]
+  }
+}

@@ -1,11 +1,12 @@
 {
   "gitSyncId": "6808fda53361a34d8231cac0_1192b2b6-ac14-4cc4-90fb-ae8bba1eeab6",
   "unpublishedPage": {
+    "isHidden": false,
     "layouts": [
       {
         "dsl": {
           "backgroundColor": "none",
-          "bottomRow": 1470,
+          "bottomRow": 770,
           "canExtend": true,
           "containerStyle": "none",
           "detachFromLayout": true,
@@ -25,7 +26,7 @@
         }
       }
     ],
-    "name": "Page1",
-    "slug": "page1"
+    "name": "Verifiche",
+    "slug": "verifiche"
   }
 }
