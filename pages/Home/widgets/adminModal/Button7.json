@@ -1,38 +1,36 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 14,
+  "bottomRow": 28,
   "boxShadow": "none",
-  "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+  "buttonColor": "#e15615",
   "buttonVariant": "PRIMARY",
   "disabledWhenInvalid": false,
   "dynamicBindingPathList": [
     {
-      "key": "buttonColor"
-    },
-    {
       "key": "borderRadius"
     }
   ],
-  "dynamicPropertyPathList": [],
   "dynamicTriggerPathList": [
     {
       "key": "onClick"
     }
   ],
+  "iconAlign": "left",
+  "iconName": "control",
   "isDefaultClickDisabled": true,
   "isDisabled": false,
   "isLoading": false,
   "isVisible": true,
-  "key": "zwzqla24bz",
-  "leftColumn": 48,
+  "key": "iv1ckdflnz",
+  "leftColumn": 3,
   "minWidth": 120,
-  "mobileBottomRow": 14,
-  "mobileLeftColumn": 47,
-  "mobileRightColumn": 63,
-  "mobileTopRow": 10,
+  "mobileBottomRow": 28,
+  "mobileLeftColumn": 3,
+  "mobileRightColumn": 19,
+  "mobileTopRow": 24,
   "needsErrorInfo": false,
-  "onClick": "{{homeFunctions.impostaPeriodoAdmin();}}",
+  "onClick": "{{navigateTo('Verifiche', {}, 'SAME_WINDOW');}}",
   "parentColumnSpace": 9.03125,
   "parentId": "lt4iylkmzz",
   "parentRowSpace": 10,
@@ -41,11 +39,11 @@
   "renderMode": "CANVAS",
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
-  "rightColumn": 61,
-  "text": "Imposta",
-  "topRow": 10,
+  "rightColumn": 19,
+  "text": "Controlli",
+  "topRow": 24,
   "type": "BUTTON_WIDGET",
   "version": 1,
-  "widgetId": "90navoqpl7",
-  "widgetName": "imposta_periodo_btn"
+  "widgetId": "qein2cqm5w",
+  "widgetName": "Button7"
 }

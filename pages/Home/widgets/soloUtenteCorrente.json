@@ -2,7 +2,7 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "alignWidget": "LEFT",
   "animateLoading": true,
-  "bottomRow": 31,
+  "bottomRow": 30,
   "boxShadow": "none",
   "defaultSwitchState": "{{ homeFunctions.filtraPerNomeUtente}}",
   "dynamicBindingPathList": [
@@ -42,7 +42,7 @@
   "mobileTopRow": 26,
   "needsErrorInfo": false,
   "onChange": "{{ homeFunctions.aggiornaFiltroTabella()}}",
-  "originalBottomRow": 30,
+  "originalBottomRow": 31,
   "originalTopRow": 26,
   "parentColumnSpace": 20.25,
   "parentId": "0",

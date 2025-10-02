@@ -60,7 +60,7 @@
   "placeholderText": "Select option",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 17,
+  "rightColumn": 21,
   "serverSideFiltering": false,
   "sourceData": "{{ homeFunctions.getMesiMap()}}",
   "topRow": 8,
