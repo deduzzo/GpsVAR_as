@@ -306,6 +306,7 @@ export default {
 		for (let riga of allData) {
 			const voceSplitted = riga["voce"].split("$");
 			const vocePulita = this.allVariabiliMap[riga["voce"]];
+			let vocetest = this.allVariabiliMap["#GM.OMNIC2$8P"]
 			const periodoSplitted = riga["periodo"].split("_");
 			const competenzaSplitted = riga["competenza"].split("_");
 			const riferimentoVariabile = moment({
@@ -322,7 +323,7 @@ export default {
 				"MESE": parseInt(riferimentoStipendio.month()) +1,
 				"MENSILITA": mensilita[riferimentoStipendio.month()],
 				"VOCE": vocePulita.VOCE,
-				"SUB": vocePulita.SUB,
+				"SUB": vocePulita.SUB_STR.replace("_",""),
 				"ARR": "",
 				"QTA": this.allVariabiliMap[riga['voce']]['IMPORTO'] === "" ? valoreVariabileRow : "",
 				"IMP": this.allVariabiliMap[riga['voce']]['IMPORTO'] === "SI" ? valoreVariabileRow : "",

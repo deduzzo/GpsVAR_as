@@ -3,6 +3,9 @@ export default {
 	defaultTab: 'Sign In',
 	secret: "UxZ>69'[Tu<6",
 	scope: "gpsvar",
+	loginScopiRichiesti: "asp5-anagrafica cambio-medico",
+	loginAmbitoRichiesto: "api",
+	dominio: "asp.messina.it",
 
 	init: () => {
 		if (appsmith.store.message && appsmith.store.message !== null) {
@@ -33,6 +36,16 @@ export default {
 
 	createToken: (user) => {
 		return jsonwebtoken.sign(user, this.secret, {expiresIn: 60 * 60});
+	},
+	
+	signInNew: async () => {
+		try {
+		let out = await getToken.run();
+		storeValue("authToken",getToken.data.data.token);
+		}
+		catch (ex) {
+			showAlert(getToken.data.err.msg, "error");
+		}
 	},
 
 	signIn: async (userNonNecessarioNelDominio = false) => {

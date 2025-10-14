@@ -18,6 +18,18 @@
       {
         "name": "scope",
         "value": "\"gpsvar\""
+      },
+      {
+        "name": "loginScopiRichiesti",
+        "value": "\"asp5-anagrafica cambio-medico\""
+      },
+      {
+        "name": "loginAmbitoRichiesto",
+        "value": "\"api\""
+      },
+      {
+        "name": "dominio",
+        "value": "\"asp.messina.it\""
       }
     ]
   }
