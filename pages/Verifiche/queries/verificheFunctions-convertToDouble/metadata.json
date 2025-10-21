@@ -1,6 +1,6 @@
 {
-  "gitSyncId": "6808fda53361a34d8231cac0_c6660a74-9cbd-461f-9903-a144ba4da3fb",
-  "id": "Verifiche_verificheFunctions.convertToDobule",
+  "gitSyncId": "6808fda53361a34d8231cac0_a58d0959-6eb5-4020-8203-4c2a2e56a48d",
+  "id": "Verifiche_verificheFunctions.convertToDouble",
   "pluginId": "js-plugin",
   "pluginType": "JS",
   "unpublishedAction": {
@@ -26,8 +26,8 @@
         "key": "body"
       }
     ],
-    "fullyQualifiedName": "verificheFunctions.convertToDobule",
-    "name": "convertToDobule",
+    "fullyQualifiedName": "verificheFunctions.convertToDouble",
+    "name": "convertToDouble",
     "pageId": "Verifiche",
     "runBehaviour": "MANUAL",
     "userSetOnLoad": false

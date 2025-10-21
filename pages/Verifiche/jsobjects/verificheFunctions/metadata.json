@@ -37,7 +37,7 @@
       },
       {
         "name": "lastPeriodo",
-        "value": "getLastPeriodo.data[0].anno + \"_\" + getLastPeriodo.data[0].mese"
+        "value": "(getLastPeriodo?.data?.[0]?.anno ?? \"\") + \"_\" + (getLastPeriodo?.data?.[0]?.mese ?? \"\")"
       }
     ]
   }
