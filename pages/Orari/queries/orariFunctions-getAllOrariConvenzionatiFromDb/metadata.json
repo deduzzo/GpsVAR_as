@@ -1,6 +1,6 @@
 {
-  "gitSyncId": "6808fda53361a34d8231cac0_c37892ff-3488-42d1-8bff-f8b73837d861",
-  "id": "Orari_orariFunctions.aggiungiNuovoConvenzionatoBranca",
+  "gitSyncId": "6808fda53361a34d8231cac0_b23215ae-98d2-4c33-a13a-514a0146d80a",
+  "id": "Orari_orariFunctions.getAllOrariConvenzionatiFromDb",
   "pluginId": "js-plugin",
   "pluginType": "JS",
   "unpublishedAction": {
@@ -22,8 +22,8 @@
         "key": "body"
       }
     ],
-    "fullyQualifiedName": "orariFunctions.aggiungiNuovoConvenzionatoBranca",
-    "name": "aggiungiNuovoConvenzionatoBranca",
+    "fullyQualifiedName": "orariFunctions.getAllOrariConvenzionatiFromDb",
+    "name": "getAllOrariConvenzionatiFromDb",
     "pageId": "Orari",
     "runBehaviour": "MANUAL",
     "userSetOnLoad": false
