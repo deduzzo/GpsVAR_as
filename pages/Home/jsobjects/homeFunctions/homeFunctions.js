@@ -683,5 +683,5 @@ doc.line(pageWidth - 80, firmaY2 + 8, pageWidth - 20, firmaY2 + 8); // destra, s
 			}
 			});
 		}
-	}
+	},
 };

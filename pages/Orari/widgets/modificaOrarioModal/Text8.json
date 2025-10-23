@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 56,
+  "bottomRow": 8,
   "dynamicBindingPathList": [
     {
       "key": "truncateButtonColor"
@@ -14,45 +14,42 @@
     },
     {
       "key": "text"
-    },
-    {
-      "key": "textColor"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
   "dynamicTriggerPathList": [],
   "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
-  "fontSize": "1rem",
-  "fontStyle": "BOLD",
+  "fontSize": "0.875rem",
+  "fontStyle": "",
   "isLoading": false,
   "isVisible": true,
-  "key": "ahqvsndamn",
-  "leftColumn": 53,
+  "key": "q6rae5gwvu",
+  "leftColumn": 1,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 55,
-  "mobileLeftColumn": 45,
-  "mobileRightColumn": 61,
-  "mobileTopRow": 51,
+  "mobileBottomRow": 9,
+  "mobileLeftColumn": 1,
+  "mobileRightColumn": 17,
+  "mobileTopRow": 5,
   "needsErrorInfo": false,
-  "originalBottomRow": 56,
-  "originalTopRow": 52,
+  "originalBottomRow": 8,
+  "originalTopRow": 4,
   "overflow": "NONE",
-  "parentColumnSpace": 20.25,
-  "parentId": "0",
+  "parentColumnSpace": 6.9375,
+  "parentId": "y0t1jrcpqh",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 61,
+  "rightColumn": 31,
   "shouldTruncate": false,
-  "text": "Totale ore: {{ orariFunctions.calcolaTotaleOre(Object.values( appsmith.store.orarioPerDistretto))}}",
-  "textAlign": "RIGHT",
-  "textColor": "{{appsmith.theme.colors.primaryColor}}",
-  "topRow": 52,
+  "text": "Convenzionato {{appsmith.store.orarioDaModificare.convenzionato.COGNOME + \" \" + appsmith.store.orarioDaModificare.convenzionato.NOME}}",
+  "textAlign": "LEFT",
+  "textColor": "#231F20",
+  "topRow": 4,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,
-  "widgetId": "0i1xcmok42",
-  "widgetName": "Text6"
+  "widgetId": "xtb4o06keu",
+  "widgetName": "Text8"
 }

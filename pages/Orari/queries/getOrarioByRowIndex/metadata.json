@@ -1,6 +1,6 @@
 {
-  "gitSyncId": "6808fda53361a34d8231cac0_c94f52c2-e113-4b86-9fda-9e8ad655efd5",
-  "id": "Orari_getAllConvenzionatiBranche",
+  "gitSyncId": "6808fda53361a34d8231cac0_a5ee9046-4f32-46e3-89b5-2144e0c017c1",
+  "id": "Orari_getOrarioByRowIndex",
   "pluginId": "google-sheets-plugin",
   "pluginType": "SAAS",
   "unpublishedAction": {
@@ -15,7 +15,7 @@
         },
         "pagination": {
           "data": {
-            "limit": "999999",
+            "limit": "1",
             "offset": "0"
           }
         },
@@ -29,12 +29,10 @@
           "data": ""
         },
         "sheetName": {
-          "data": "convenzionati_branche"
+          "data": "convenzionati_orari"
         },
         "sheetUrl": {
-          "componentData": "",
-          "data": "https://docs.google.com/spreadsheets/d/186jsr4bHqJ60W8_WEg_RJdu14jYVQ6RI8VRNVe80gWg",
-          "viewType": "json"
+          "data": "https://docs.google.com/spreadsheets/d/186jsr4bHqJ60W8_WEg_RJdu14jYVQ6RI8VRNVe80gWg/edit"
         },
         "smartSubstitution": {
           "data": true
@@ -55,8 +53,8 @@
             "children": [
               {
                 "condition": "EQ",
-                "key": "attivo",
-                "value": "SI"
+                "key": "rowIndex",
+                "value": "{{this.params.rowIndex}}"
               }
             ],
             "condition": "AND"
@@ -73,8 +71,12 @@
       "name": "gpsvar_data",
       "pluginId": "google-sheets-plugin"
     },
-    "dynamicBindingPathList": [],
-    "name": "getAllConvenzionatiBranche",
+    "dynamicBindingPathList": [
+      {
+        "key": "formData.where.data.children[0].value"
+      }
+    ],
+    "name": "getOrarioByRowIndex",
     "pageId": "Orari",
     "runBehaviour": "MANUAL",
     "userSetOnLoad": false

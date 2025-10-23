@@ -55,6 +55,11 @@
                 "condition": "EQ",
                 "key": "id_convenzionato",
                 "value": "{{ this.params.convenzionato}}"
+              },
+              {
+                "condition": "EQ",
+                "key": "attivo_fino_a",
+                "value": ""
               }
             ],
             "condition": "AND"
