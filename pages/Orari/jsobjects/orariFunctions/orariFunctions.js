@@ -429,24 +429,41 @@ buildRow(entry) {
     ? Object.values(entry.perDistretto).reduce((acc, d) => acc + (d?.ore || 0), 0)
     : 0;
 
-  const presTxt = Array.isArray(entry?.perPresidio) && entry.perPresidio.length
-    ? entry.perPresidio.map(p => `${p.presidio}: ${this.fmtHours(p.ore)}`).join(" • ")
-    : "—";
+  const presList = Array.isArray(entry?.perPresidio) && entry.perPresidio.length
+    ? entry.perPresidio.map(p => `• ${p.presidio}: ${this.fmtHours(p.ore)}`).join("\n")
+    : "• —";
 
-  const distTxt = entry?.perDistretto && Object.keys(entry.perDistretto).length
-    ? Object.values(entry.perDistretto).map(d => `${d.distretto}: ${this.fmtHours(d.ore)}`).join(" • ")
-    : "—";
+  const distList = entry?.perDistretto && Object.keys(entry.perDistretto).length
+    ? Object.values(entry.perDistretto).map(d => `• ${d.distretto}: ${this.fmtHours(d.ore)}`).join("\n")
+    : "• —";
 
-  const specialista =
-    `${this.fmtCognomeNome(c)}\nCI: ${c.CI || ""} ${c?.branca ? "• " + c.branca : ""}`.trim()
-    + `\n\nTotale: ${this.fmtHours(totOre)}\nPresidi: ${presTxt}\nDistretti: ${distTxt}`;
+  // Nome dello specialista (senza CI)
+  const nome = this.fmtCognomeNome(c);
+  const branca = c?.branca ? c.branca : "";
+
+  // Uso lo stesso approccio dell'header con content e styles
+  const specialistaCell = {
+    kind: "specialista",
+    nome: nome,
+    branca: branca,
+    totOre: this.fmtHours(totOre),
+    presidi: presList,
+    distretti: distList,
+    content: "", // verrà disegnato manualmente
+    styles: {
+      fontSize: 7.5,
+      halign: "left",
+      valign: "top",
+      cellPadding: 2
+    }
+  };
 
   const dayCells = this.DAYS().map(d => ({
     kind: "slots",
     slots: this.dayCellBlocks(orario[d])
   }));
 
-  return [specialista, ...dayCells];
+  return [specialistaCell, ...dayCells];
 },
 
 	sortBySpecialista(arr = []) {
@@ -518,13 +535,13 @@ pdfOrari({ dati = [], raggruppaPer = "branca" } = {}) {
   const body = this.buildTableBody({ dati, raggruppaPer });
 
   const columnStyles = {
-    0: { cellWidth: 70, halign: "center", valign: "top" }, // PRIMA COLONNA centrata
-    1: { cellWidth: 32, halign: "center", valign: "top" },
-    2: { cellWidth: 32, halign: "center", valign: "top" },
-    3: { cellWidth: 32, halign: "center", valign: "top" },
-    4: { cellWidth: 32, halign: "center", valign: "top" },
-    5: { cellWidth: 32, halign: "center", valign: "top" },
-    6: { cellWidth: 32, halign: "center", valign: "top" }
+    0: { cellWidth: 65, halign: "center", valign: "top" }, // PRIMA COLONNA centrata
+    1: { cellWidth: 35.3, halign: "center", valign: "top" },
+    2: { cellWidth: 35.3, halign: "center", valign: "top" },
+    3: { cellWidth: 35.3, halign: "center", valign: "top" },
+    4: { cellWidth: 35.3, halign: "center", valign: "top" },
+    5: { cellWidth: 35.3, halign: "center", valign: "top" },
+    6: { cellWidth: 35.3, halign: "center", valign: "top" }
   };
 
   const slotColors = [
@@ -537,7 +554,7 @@ pdfOrari({ dati = [], raggruppaPer = "branca" } = {}) {
   // stima altezza esatta per i box di una cella giorno
   function measureSlotsHeight({ doc, cellWidth, slots }) {
     if (!slots || slots.length === 0) return 0;
-    const innerW = Math.max(10, cellWidth - 3);
+    const innerW = Math.max(10, cellWidth - 1);
     let total = 0;
     const gap = 1.2; // solo tra box, non dopo l'ultimo
     for (let idx = 0; idx < slots.length; idx++) {
@@ -549,7 +566,7 @@ pdfOrari({ dati = [], raggruppaPer = "branca" } = {}) {
       total += (pad + timeH + 1 + locH + pad);
       if (idx < slots.length - 1) total += gap;
     }
-    return total; // nessun margine extra in alto/basso
+    return total * 0.65; // riduzione del 20% dell'altezza totale
   }
 
   jspdf_autotable.autoTable(doc, {
@@ -558,11 +575,11 @@ pdfOrari({ dati = [], raggruppaPer = "branca" } = {}) {
     theme: "grid",
     styles: {
       fontSize: 9,
-      cellPadding: 1.2,       // padding default per col 0; per i giorni lo annulliamo sotto
+      cellPadding: 0.5,       // padding default per col 0; per i giorni lo annulliamo sotto
       valign: "top",
       overflow: "linebreak",
       lineColor: [220, 220, 220],
-      lineWidth: 0.1,
+      lineWidth: 0.05,
       textColor: 20
     },
     headStyles: { fillColor: [230, 236, 255], textColor: 20, fontStyle: "bold", halign: "center" },
@@ -573,12 +590,13 @@ pdfOrari({ dati = [], raggruppaPer = "branca" } = {}) {
     // Imposto minCellHeight preciso e tolgo padding verticale nelle colonne giorno
     didParseCell(data) {
       const { column, cell, doc } = data;
+
       if (column.index >= 1 && column.index <= 6 && cell?.raw && typeof cell.raw === "object" && cell.raw.kind === "slots") {
         const slots = Array.isArray(cell.raw.slots) ? cell.raw.slots : [];
         cell.text = [""]; // non lasciare testo "fantasma"
 
-        // NIENTE padding top/bottom: così il box finale tocca la riga inferiore
-        cell.styles.cellPadding = { top: 0, right: 1.2, bottom: 0, left: 1.2 };
+        // NIENTE padding: così il box occupa tutta la cella
+        cell.styles.cellPadding = { top: 0, right: 0, bottom: 0, left: 0 };
 
         const needH = measureSlotsHeight({
           doc,
@@ -592,18 +610,86 @@ pdfOrari({ dati = [], raggruppaPer = "branca" } = {}) {
     // Disegno dei card all'interno della cella, occupando tutta l'altezza
     didDrawCell(data) {
       const { doc, cell, column } = data;
+
+      // Gestione colonna specialista (0)
+      if (column.index === 0 && cell?.raw && typeof cell.raw === "object" && cell.raw.kind === "specialista") {
+        const { nome, branca, totOre, presidi, distretti } = cell.raw;
+        const x = cell.x + 2;
+        let y = cell.y + 3;
+
+        // Nome in grassetto e più grande
+        doc.setFontSize(8.5);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(20);
+        doc.text(nome || "", x, y);
+        y += 3.5;
+
+        // Branca in corsivo
+        if (branca) {
+          doc.setFontSize(7);
+          doc.setFont(undefined, "italic");
+          doc.setTextColor(60);
+          doc.text(branca, x, y);
+          y += 3;
+        }
+
+        // Totale ore
+        y += 1;
+        doc.setFontSize(7);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(40);
+        doc.text(`Tot: ${totOre}`, x, y);
+        y += 3.5;
+
+        // Presidi
+        doc.setFont(undefined, "bold");
+        doc.text("Presidi:", x, y);
+        y += 2.8;
+        doc.setFont(undefined, "normal");
+        doc.setFontSize(6.5);
+        doc.setTextColor(50);
+        const presidiLines = (presidi || "").split("\n");
+        for (const line of presidiLines) {
+          doc.text(line, x, y);
+          y += 2.5;
+        }
+
+        // Distretti
+        y += 0.5;
+        doc.setFontSize(7);
+        doc.setFont(undefined, "bold");
+        doc.setTextColor(40);
+        doc.text("Distretti:", x, y);
+        y += 2.8;
+        doc.setFont(undefined, "normal");
+        doc.setFontSize(6.5);
+        doc.setTextColor(50);
+        const distrettiLines = (distretti || "").split("\n");
+        for (const line of distrettiLines) {
+          doc.text(line, x, y);
+          y += 2.5;
+        }
+
+        // Reset font
+        doc.setFont(undefined, "normal");
+        return;
+      }
+
+      // Gestione colonne giorni (1-6)
       if (!(column.index >= 1 && column.index <= 6)) return;
       if (!cell?.raw || typeof cell.raw !== "object" || cell.raw.kind !== "slots") return;
 
       const slots = Array.isArray(cell.raw.slots) ? cell.raw.slots : [];
       if (slots.length === 0) return;
 
-      const x = cell.x + 0.6;                // leggero inset orizzontale
+      // Estendo leggermente oltre i bordi della cella per eliminare spazi bianchi
+      const overlap = 0.3;                   // sovrapposizione per coprire margini/bordi
+      const x = cell.x - overlap;            // estendo a sinistra
       const y = cell.y;                      // nessun margine superiore
-      const w = cell.width - 1.2;            // simmetrico ai 0.6 laterali
+      const w = cell.width + (overlap * 2); // estendo sia a sinistra che a destra
       const h = cell.height;                 // tutta la cella in altezza
 
-      const innerW = Math.max(10, w - 3);
+      const innerW = Math.max(10, w - 1);
       const gap = 1.2;
 
       // prepara metriche per ogni box
