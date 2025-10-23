@@ -8,10 +8,10 @@
       "encodeParamsToggle": true,
       "jsArguments": [
         {
-          "name": "id"
+          "name": "convenzionato"
         },
         {
-          "name": "orarioConvenzionato"
+          "name": "orario"
         }
       ],
       "paginationType": "NONE",

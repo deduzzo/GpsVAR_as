@@ -33,6 +33,8 @@ export default {
 			storeValue('orarioConvenzionatoSelezionato', {});
 			storeValue('orarioPerPresidio', []);
 			storeValue('orarioPerDistretto', []);
+			// Inizializzo il PDF vuoto
+			storeValue('pdfDataUrl', null);
 		} catch (err) {
 			console.error("Errore in initLoad:", err);
 			showAlert("Si è verificato un errore nel caricamento iniziale", "error");
@@ -258,57 +260,37 @@ export default {
 			storeValue('orarioPerPresidio', out.perPresidio);
 			storeValue('orarioPerDistretto', Object.values(out.perDistretto));
 			closeModal(caricamentoMdl.name);
+		} else {
+			storeValue('orarioConvenzionatoSelezionato', {});
+			storeValue('orarioPerPresidio', []);
+			storeValue('orarioPerDistretto', []);
+			closeModal(caricamentoMdl.name);
 		}
 	},
 
-	getAllOrariConvenzionati: async () => {
-		let orariConvenzionato = await getAllOrariConvenzionati.run();
-		let allConvenzionati = {};
-		for (let orario of orariConvenzionato) {
-			if (!allConvenzionati.hasOwnProperty(orario.id_convenzionato))
-				allConvenzionati[orario.id_convenzionato] = [];
-			allConvenzionati[orario.id_convenzionato].push(orario);
-		}
-		let allOrariOk = {};
-		for (let ids of Object.keys(allConvenzionati)) {
-			allOrariOk[ids] = await this.getOrarioConvenzionato(ids, allConvenzionati[ids]);
-		}
-		return Object.values(allOrariOk);
-	},
-
-	getOrarioConvenzionato: async (id, orarioConvenzionato) => {
+	getOrarioConvenzionato: async (convenzionato, orario) => {
+		let convenzionatoObj = this.allConvenzionatiPerBrancaMap[convenzionato];
 		let out = {};
 		let orePresidio = {};
-		let convenzionato = null;
-		if (orarioConvenzionato) {
-			convenzionato = this.allConvenzionatiMap[this.allConvenzionatiPerBrancaMap[id].id_convenzionato];
-			convenzionato.branca = this.allConvenzionatiPerBrancaMap[id].branca;
-			for (let giorno in this.getGiorniDellaSettimana()) {
-				let giornoString = this.getGiorniDellaSettimana()[giorno];
-				out[giornoString] = [];
-			}
-			for (let orario of orarioConvenzionato) {
-				let presidio = this.allPresidiMap[orario['id_presidio']];
-				out[this.getGiorniDellaSettimana()[orario['giorno_settimana']]].push({
-					rowIndex: orario.rowIndex,
-					from: orario['ingresso'],
-					to: orario['uscita'],
-					location: presidio['presidio'],
-					id_presidio: orario['id_presidio'],
-					disctrict: this.distrettiMap.byUnique[presidio['distretto']].descrizione
-				})
-			}
-			for (let giorno in this.getGiorniDellaSettimana()) {
-				const res = this.sortByTime(out[this.getGiorniDellaSettimana()[giorno]], 'from');
-				out[this.getGiorniDellaSettimana()[giorno]] = res.sortedData;
-				for (let idPres in res.oreByPresidio) {
-					if (!orePresidio.hasOwnProperty(idPres))
-						orePresidio[idPres] = 0;
-					orePresidio[idPres] += res.oreByPresidio[idPres];
-				}
+		for (let giorno of this.getGiorniDellaSettimana()) {
+			out[giorno] = [];
+		}
+		for (let entry of orario) {
+			let presidio = this.allPresidiMap[entry.id_presidio];
+			if (out.hasOwnProperty(entry.giorno)) {
+				out[entry.giorno].push({ from: entry.ingresso, to: entry.uscita, location: presidio.presidio, id_presidio: presidio.id });
 			}
 		}
-
+		for (let giorno in out) {
+			let sorted = this.sortByTime(out[giorno]);
+			out[giorno] = sorted.sortedData;
+			for (let [key, value] of Object.entries(sorted.oreByPresidio)) {
+				if (orePresidio.hasOwnProperty(key))
+					orePresidio[key] += value;
+				else
+					orePresidio[key] = value;
+			}
+		}
 		let outPresidio = [];
 		let outDistretto = {};
 		for (let presidio in orePresidio) {
@@ -327,7 +309,59 @@ export default {
 				};
 			outDistretto[this.allPresidiMap[presidioInt].distretto].ore += riga.ore;
 		}
-		return { convenzionato: convenzionato, orario: out, perDistretto: outDistretto, perPresidio: outPresidio }
+		return { convenzionato: convenzionatoObj, orario: out, perDistretto: outDistretto, perPresidio: outPresidio }
+	},
+
+	/**
+	 * FUNZIONE PRINCIPALE: Recupera tutti gli orari dei convenzionati dal database
+	 * Questa è la funzione che mancava e che causa i dati vuoti!
+	 */
+	async getAllOrariConvenzionati() {
+		try {
+			// Assumo che esista una query chiamata getAllOrari o simile
+			// Se il nome è diverso, sostituiscilo con il nome corretto della tua query
+			const allOrari = await getAllOrari.run();
+			
+			// Organizzo i dati per convenzionato
+			const convenzionatiOrari = {};
+			
+			for (let entry of allOrari) {
+				const idConv = entry.id_convenzionato;
+				
+				if (!convenzionatiOrari[idConv]) {
+					convenzionatiOrari[idConv] = [];
+				}
+				convenzionatiOrari[idConv].push(entry);
+			}
+			
+			// Creo l'array finale nel formato richiesto
+			const result = [];
+			
+			for (let idConv in convenzionatiOrari) {
+				const orari = convenzionatiOrari[idConv];
+				const convenzionato = this.allConvenzionatiMap[this.allConvenzionatiPerBrancaMap[orari[0].id_convenzionato_branca]?.id_convenzionato];
+				const branca = this.allConvenzionatiPerBrancaMap[orari[0].id_convenzionato_branca]?.branca;
+				
+				if (convenzionato) {
+					const orarioFormattato = await this.getOrarioConvenzionato(orari[0].id_convenzionato_branca, orari);
+					
+					result.push({
+						convenzionato: {
+							...convenzionato,
+							branca: branca,
+							CI: convenzionato.CI
+						},
+						orario: orarioFormattato.orario
+					});
+				}
+			}
+			
+			return result;
+		} catch (error) {
+			console.error("Errore nel recupero degli orari:", error);
+			showAlert("Errore nel caricamento degli orari", "error");
+			return [];
+		}
 	},
 
 	calcolaTotaleOre: (data = appsmith.store.orarioPerDistretto) => {
@@ -381,7 +415,7 @@ export default {
 		return false;
 	},
 
-	// Giorni standard (riuso della tua funzione, ma comodo averli qui)
+	// Giorni standard
 	DAYS() { return this.getGiorniDellaSettimana(); },
 
 	padTime(s) {
@@ -395,6 +429,7 @@ export default {
 			.replace(/\s+/g, " ")
 			.toUpperCase();
 	},
+	
 	dayCellText(orarioGiorno = []) {
 		if (!Array.isArray(orarioGiorno) || orarioGiorno.length === 0) return "";
 		return orarioGiorno
@@ -403,7 +438,7 @@ export default {
 			const loc = s?.location ? ` (${s.location})` : "";
 			return `${range}${loc}`;
 		})
-			.join("\n"); // va su più righe nella cella
+			.join("\n");
 	},
 
 	buildRow(entry) {
@@ -413,6 +448,7 @@ export default {
 		const dayCells = this.DAYS().map(d => this.dayCellText(orario[d]));
 		return [specialista, ...dayCells];
 	},
+	
 	sortBySpecialista(arr = []) {
 		return [...arr].sort((a, b) =>
 												 this.fmtCognomeNome(a.convenzionato).localeCompare(
@@ -423,15 +459,37 @@ export default {
 												);
 	},
 
+	// Rileva la funzione AutoTable
+	getAutoTableInvoker(doc) {
+		try {
+			if (doc && typeof doc.autoTable === "function") {
+				return (d, opts) => d.autoTable(opts);
+			}
+			if (typeof window !== "undefined" && typeof window.jspdf_autotable === "function") {
+				return (d, opts) => window.jspdf_autotable(d, opts);
+			}
+			if (typeof jspdf_autotable === "function") {
+				return (d, opts) => jspdf_autotable(d, opts);
+			}
+			if (typeof jspdf_autotable !== "undefined" && typeof jspdf_autotable.default === "function") {
+				return (d, opts) => jspdf_autotable.default(d, opts);
+			}
+		} catch (e) {
+			// silenzioso
+		}
+		return null;
+	},
 
-
-
-
+	ensureAutoTableOrFail(doc) {
+		const at = this.getAutoTableInvoker(doc);
+		if (!at) {
+			showAlert("⚠️ jsPDF-AutoTable non caricato. Aggiungi le librerie 'jspdf' e 'jspdf-autotable' nelle App Libraries e ricarica.", "error");
+		}
+		return at;
+	},
 
 	/**
 	 * Genera il PDF (Data URL) con jsPDF + AutoTable
-	 * @param {Array} dati - array come quello restituito da getAllOrariConvenzionati()
-	 * @param {String} raggruppaPer - "branca" | "specialista"
 	 */
 	pdfOrari({ dati = [], raggruppaPer = "branca" } = {}) {
 		const doc = jspdf.jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
@@ -453,7 +511,7 @@ export default {
 
 		// colonne: Specialista + 6 giorni
 		const columnStyles = {
-			0: { cellWidth: 70 }, // Specialista
+			0: { cellWidth: 70 },
 			1: { cellWidth: 32 },
 			2: { cellWidth: 32 },
 			3: { cellWidth: 32 },
@@ -463,145 +521,48 @@ export default {
 		};
 
 		const at = this.ensureAutoTableOrFail(doc);
-if (!at) {
-  // fallback: restituisco comunque un PDF minimale con il titolo, così non si rompe la UI
-  return doc.output("dataurlstring");
-}
-
-at(doc, {
-  body,
-  startY: 26,
-  theme: "grid",
-  styles: {
-    fontSize: 9,
-    cellPadding: 2,
-    overflow: "linebreak",
-    valign: "top"
-  },
-  columnStyles,
-  headStyles: { fillColor: [240, 240, 240] },
-  didDrawPage: function (data) {
-    const pageCount = doc.internal.getNumberOfPages();
-    doc.setFontSize(9);
-    doc.setTextColor(120);
-    doc.text(
-      `Pagina ${data.pageNumber} di ${pageCount}`,
-      doc.internal.pageSize.getWidth() - 20,
-      doc.internal.pageSize.getHeight() - 8,
-      { align: "right" }
-    );
-  }
-});
-
-
-		return doc.output("dataurlstring"); // "data:application/pdf;..."
-	},
-
-	/**
-	 * Anteprima su iframe "orarioIframe"
-	 * mode: "url" | "srcDoc"
-	 */
-	previewOrari({ dati = [], raggruppaPer = "branca", mode = "url" } = {}) {
-		const dataUrl = this.pdfOrari({ dati, raggruppaPer });
-
-		if (mode === "url") {
-			// 1) se l'iframe espone setURL (Appsmith)
-			if (typeof orarioIframe?.setURL === "function") {
-				orarioIframe.setURL(dataUrl);
-			} else {
-				// Fallback via store/binding
-				storeValue("orariPdfUrl", dataUrl);
-				showAlert("Anteprima pronta: lega la proprietà URL dell'iframe a {{ appsmith.store.orariPdfUrl }}", "info");
-			}
-		} else {
-			// mode === "srcDoc": mostriamo direttamente un <embed> del PDF in srcdoc
-			const html = `
-<!doctype html>
-<html><head><meta charset="utf-8" />
-<style>
-  html,body { margin:0; padding:0; height:100%; }
-  .wrap { height:100%; width:100%; display:flex; }
-  embed { flex:1; height:100%; width:100%; border:0; }
-</style>
-</head>
-<body>
-  <div class="wrap"><embed type="application/pdf" src="${dataUrl}"/></div>
-</body></html>`;
-			// 1) se l'iframe espone setSrcDoc (Appsmith)
-			if (typeof orarioIframe?.setSrcDoc === "function") {
-				orarioIframe.setSrcDoc(html);
-			} else {
-				// Fallback via store/binding
-				storeValue("orariPdfSrcDoc", html);
-				showAlert("Anteprima pronta: lega la proprietà SrcDoc dell'iframe a {{ appsmith.store.orariPdfSrcDoc }}", "info");
-			}
+		if (!at) {
+			return doc.output("dataurlstring");
 		}
-	},
 
-	/**
-	 * Helper: carica tutto dal DB e apre anteprima
-	 * Esempio pulsante:
-	 *  {{ utils.previewOrariAll({ raggruppaPer: "branca", mode: "url" }) }}
-	 */
-	async previewOrariAll({ raggruppaPer = "branca", mode = "url" } = {}) {
-		showModal(caricamentoMdl.name);
-		try {
-			const dati = await this.getAllOrariConvenzionati(); // -> [{ convenzionato, orario, ... }, ...]
-			this.previewOrari({ dati, raggruppaPer, mode });
-		} catch (e) {
-			console.error(e);
-			showAlert("Errore nella generazione dell'anteprima PDF", "error");
-		} finally {
-			closeModal(caricamentoMdl.name);
-		}
-	},
-	
-	// Rileva la funzione AutoTable indipendentemente da come è stata caricata la libreria
-getAutoTableInvoker(doc) {
-  try {
-    // Caso 1: plugin ha patchato jsPDF -> doc.autoTable(...)
-    if (doc && typeof doc.autoTable === "function") {
-      return (d, opts) => d.autoTable(opts);
-    }
-    // Caso 2: funzione globale window.jspdf_autotable(doc, opts)
-    if (typeof window !== "undefined" && typeof window.jspdf_autotable === "function") {
-      return (d, opts) => window.jspdf_autotable(d, opts);
-    }
-    // Caso 3: variabile globale jspdf_autotable(doc, opts)
-    if (typeof jspdf_autotable === "function") {
-      return (d, opts) => jspdf_autotable(d, opts);
-    }
-    // Caso 4: export default (es. bundler) -> jspdf_autotable.default(doc, opts)
-    if (typeof jspdf_autotable !== "undefined" && typeof jspdf_autotable.default === "function") {
-      return (d, opts) => jspdf_autotable.default(d, opts);
-    }
-  } catch (e) {
-    // silenzioso: se non è definito il simbolo, prosegui
-  }
-  return null; // non trovato
-},
+		at(doc, {
+			body,
+			startY: 26,
+			theme: "grid",
+			styles: {
+				fontSize: 9,
+				cellPadding: 2,
+				overflow: "linebreak",
+				valign: "top"
+			},
+			columnStyles,
+			headStyles: { fillColor: [240, 240, 240] },
+			didDrawPage: function (data) {
+				const pageCount = doc.internal.getNumberOfPages();
+				doc.setFontSize(9);
+				doc.setTextColor(120);
+				doc.text(
+					`Pagina ${data.pageNumber} di ${pageCount}`,
+					doc.internal.pageSize.getWidth() - 20,
+					doc.internal.pageSize.getHeight() - 8,
+					{ align: "right" }
+				);
+			}
+		});
 
-ensureAutoTableOrFail(doc) {
-  const at = this.getAutoTableInvoker(doc);
-  if (!at) {
-    showAlert("⚠️ jsPDF-AutoTable non caricato. Aggiungi le librerie 'jspdf' e 'jspdf-autotable' nelle App Libraries e ricarica.", "error");
-  }
-  return at;
-},
+		return doc.output("dataurlstring");
+	},
 
 	buildTableBody: function ({ dati = [], raggruppaPer = "branca" } = {}) {
-		const DAYS = this.DAYS(); // es. ["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"]
+		const DAYS = this.DAYS();
 		const body = [];
 
-		// Intestazione tabella che riutilizziamo
 		const headRow = [{ content: "Specialista", styles: { fontStyle: "bold" } }]
 		.concat(DAYS.map(d => ({ content: d, styles: { fontStyle: "bold" } })));
 
-		// Normalizzo l'array dati per sicurezza
 		const input = Array.isArray(dati) ? dati : [];
 
 		if (raggruppaPer === "branca") {
-			// Costruisco la mappa branca -> entries senza usare ||= (compatibilità Appsmith)
 			const map = {};
 			for (let i = 0; i < input.length; i++) {
 				const e = input[i] || {};
@@ -616,22 +577,18 @@ ensureAutoTableOrFail(doc) {
 			for (let i = 0; i < branche.length; i++) {
 				const b = branche[i];
 
-				// Riga di sezione con colSpan uguale al numero di colonne (1 + DAYS.length)
 				body.push([{
 					content: `BRANCA: ${b}`,
 					colSpan: 1 + DAYS.length,
 					styles: { halign: "center", fillColor: [230, 230, 230], fontStyle: "bold" }
 				}]);
 
-				// Header ripetuto all'interno del body (ok per AutoTable)
 				body.push(headRow);
 
-				// Righe dei dati per quella branca
 				const rows = this.sortBySpecialista(map[b]).map(e => this.buildRow(e));
 				for (let r = 0; r < rows.length; r++) body.push(rows[r]);
 			}
 		} else {
-			// Elenco unico per specialista
 			body.push(headRow);
 			const rows = this.sortBySpecialista(input).map(e => this.buildRow(e));
 			for (let r = 0; r < rows.length; r++) body.push(rows[r]);
@@ -639,8 +596,45 @@ ensureAutoTableOrFail(doc) {
 
 		return body;
 	},
-	mostraAnteprimaOrario: () => {
-		this.previewOrariAll({ raggruppaPer: "specialista", mode: "srcDoc" });
+
+	/**
+	 * FUNZIONE ASYNC: Carica i dati e genera il PDF salvandolo nello store
+	 * Questa funzione va chiamata da un PULSANTE con onClick
+	 */
+	async generaPdfOrari(raggruppaPer = "specialista") {
+		showModal(caricamentoMdl.name);
+		try {
+			// Carica i dati dal database
+			const dati = await this.getAllOrariConvenzionati();
+			
+			// Genera il PDF
+			const dataUrl = this.pdfOrari({ dati, raggruppaPer });
+			
+			// Salva nello store per il DocumentViewer
+			await storeValue('pdfDataUrl', dataUrl);
+			
+			showAlert("PDF generato con successo!", "success");
+		} catch (e) {
+			console.error("Errore generazione PDF:", e);
+			showAlert("Errore nella generazione del PDF: " + e.message, "error");
+		} finally {
+			closeModal(caricamentoMdl.name);
+		}
+	},
+
+	/**
+	 * GETTER SINCRONO per il DocumentViewer
+	 * Restituisce l'URL del PDF salvato nello store
+	 */
+	getPdfUrl() {
+		return appsmith.store.pdfDataUrl || "";
+	},
+
+	/**
+	 * Mostra anteprima in modal (opzionale)
+	 */
+	mostraAnteprimaOrario: async () => {
+		await this.generaPdfOrari("specialista");
 		showModal(stampaOrarioModal.name);
 	}
 };

@@ -1,28 +1,20 @@
 {
   "animateLoading": true,
-  "borderOpacity": 100,
-  "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "borderWidth": 1,
-  "bottomRow": 55,
-  "boxShadow": "{{appsmith.theme.boxShadow.appBoxShadow}}",
+  "bottomRow": 59,
+  "docUrl": "{{ orariFunctions.getPdfUrl() }}",
   "dynamicBindingPathList": [
     {
-      "key": "borderRadius"
-    },
-    {
-      "key": "boxShadow"
-    },
-    {
-      "key": "srcDoc"
+      "key": "docUrl"
     }
   ],
   "dynamicTriggerPathList": [],
   "flexVerticalAlignment": "start",
+  "isCanvas": false,
   "isLoading": false,
   "isVisible": true,
-  "key": "4ujwhs27b2",
+  "key": "q5b5a6hiet",
   "leftColumn": 1,
-  "mobileBottomRow": 38,
+  "mobileBottomRow": 46,
   "mobileLeftColumn": 1,
   "mobileRightColumn": 25,
   "mobileTopRow": 6,
@@ -33,11 +25,9 @@
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
   "rightColumn": 62,
-  "source": "",
-  "srcDoc": "{{ appsmith.store.orariPdfSrcDoc }}",
   "topRow": 6,
-  "type": "IFRAME_WIDGET",
+  "type": "DOCUMENT_VIEWER_WIDGET",
   "version": 1,
-  "widgetId": "tbcaffc1gu",
-  "widgetName": "orarioIframe"
+  "widgetId": "cfx22kxgc1",
+  "widgetName": "DocumentViewer1"
 }

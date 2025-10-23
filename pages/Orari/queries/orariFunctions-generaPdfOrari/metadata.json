@@ -1,6 +1,6 @@
 {
-  "gitSyncId": "6808fda53361a34d8231cac0_eb333d01-4aff-4ea4-bfd8-2611db354d3d",
-  "id": "Orari_orariFunctions.previewOrariAll",
+  "gitSyncId": "6808fda53361a34d8231cac0_21154382-41a7-4087-9e00-c92834de486f",
+  "id": "Orari_orariFunctions.generaPdfOrari",
   "pluginId": "js-plugin",
   "pluginType": "JS",
   "unpublishedAction": {
@@ -8,7 +8,8 @@
       "encodeParamsToggle": true,
       "jsArguments": [
         {
-          "name": ""
+          "name": "raggruppaPer",
+          "value": "specialista"
         }
       ],
       "paginationType": "NONE",
@@ -26,8 +27,8 @@
         "key": "body"
       }
     ],
-    "fullyQualifiedName": "orariFunctions.previewOrariAll",
-    "name": "previewOrariAll",
+    "fullyQualifiedName": "orariFunctions.generaPdfOrari",
+    "name": "generaPdfOrari",
     "pageId": "Orari",
     "runBehaviour": "MANUAL",
     "userSetOnLoad": false

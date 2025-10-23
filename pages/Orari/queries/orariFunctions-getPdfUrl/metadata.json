@@ -1,16 +1,12 @@
 {
-  "gitSyncId": "6808fda53361a34d8231cac0_1a885d4d-d15c-4d75-bd6c-9230ed5333f2",
-  "id": "Orari_orariFunctions.previewOrari",
+  "gitSyncId": "6808fda53361a34d8231cac0_8002c154-4147-48d8-941b-720b913a9196",
+  "id": "Orari_orariFunctions.getPdfUrl",
   "pluginId": "js-plugin",
   "pluginType": "JS",
   "unpublishedAction": {
     "actionConfiguration": {
       "encodeParamsToggle": true,
-      "jsArguments": [
-        {
-          "name": ""
-        }
-      ],
+      "jsArguments": [],
       "paginationType": "NONE",
       "timeoutInMillisecond": 10000
     },
@@ -26,8 +22,8 @@
         "key": "body"
       }
     ],
-    "fullyQualifiedName": "orariFunctions.previewOrari",
-    "name": "previewOrari",
+    "fullyQualifiedName": "orariFunctions.getPdfUrl",
+    "name": "getPdfUrl",
     "pageId": "Orari",
     "runBehaviour": "MANUAL",
     "userSetOnLoad": false

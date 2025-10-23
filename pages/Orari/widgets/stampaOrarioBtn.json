@@ -14,6 +14,11 @@
       "key": "borderRadius"
     }
   ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
   "dynamicTriggerPathList": [
     {
       "key": "onClick"
@@ -33,7 +38,7 @@
   "mobileRightColumn": 45,
   "mobileTopRow": 3,
   "needsErrorInfo": false,
-  "onClick": "{{orariFunctions.mostraAnteprimaOrario();}}",
+  "onClick": "{{ orariFunctions.mostraAnteprimaOrario()}}",
   "parentColumnSpace": 20.25,
   "parentId": "0",
   "parentRowSpace": 10,
