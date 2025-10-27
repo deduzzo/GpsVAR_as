@@ -65,7 +65,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 29,
   "serverSideFiltering": false,
-  "sourceData": "{{orariFunctions.allConvenzionatiList}}",
+  "sourceData": "{{orariFunctions.getAllConvenzionatiList()}}",
   "topRow": 0,
   "type": "SELECT_WIDGET",
   "version": 1,

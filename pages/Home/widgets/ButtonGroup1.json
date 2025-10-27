@@ -36,6 +36,12 @@
     },
     {
       "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItemfl5urg45l0.backgroundColor"
+    },
+    {
+      "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItemq0nh21k0pb.textColor"
+    },
+    {
+      "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItemq0nh21k0pb.isVisible"
     }
   ],
   "dynamicPropertyPathList": [
@@ -47,6 +53,9 @@
     },
     {
       "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItemd5a6jj4yv9.onClick"
+    },
+    {
+      "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItemq0nh21k0pb.isVisible"
     }
   ],
   "dynamicTriggerPathList": [
@@ -64,6 +73,9 @@
     },
     {
       "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItemd5a6jj4yv9.onClick"
+    },
+    {
+      "key": "groupButtons.groupButtonezzecblo8e.menuItems.menuItemq0nh21k0pb.onClick"
     }
   ],
   "groupButtons": {
@@ -189,7 +201,7 @@
           "iconColor": "#fde047",
           "iconName": "pin",
           "id": "menuItem3lu8z6dvro",
-          "index": 1,
+          "index": 2,
           "isDisabled": false,
           "isVisible": "{{homeFunctions.userData.livello >= 2}}",
           "label": "Admin Menu",
@@ -200,7 +212,7 @@
         "menuItemd5a6jj4yv9": {
           "iconName": "refresh",
           "id": "menuItemd5a6jj4yv9",
-          "index": 2,
+          "index": 3,
           "isDisabled": false,
           "isVisible": true,
           "label": "Aggiorna dati...",
@@ -212,13 +224,26 @@
           "iconColor": "#fef9c3",
           "iconName": "document-share",
           "id": "menuItemfl5urg45l0",
-          "index": 0,
+          "index": 1,
           "isDisabled": false,
           "isVisible": true,
           "label": "Scarica Report",
           "onClick": "{{homeFunctions.reportDistrettoPDF();\nshowModal(modalReportDistretto.name);}}",
           "textColor": "#fef9c3",
           "widgetId": "mtfcpbtkyb"
+        },
+        "menuItemq0nh21k0pb": {
+          "backgroundColor": "#22c55e",
+          "iconColor": "#ffffff",
+          "iconName": "time",
+          "id": "menuItemq0nh21k0pb",
+          "index": 0,
+          "isDisabled": false,
+          "isVisible": "{{homeFunctions.userData.abilitazioni.includes(\"ORARI\")}}",
+          "label": "Orari",
+          "onClick": "{{navigateTo('Orari', {}, 'SAME_WINDOW');}}",
+          "textColor": "{{appsmith.theme.colors.backgroundColor}}",
+          "widgetId": "g5uglu6drq"
         }
       },
       "placement": "CENTER",

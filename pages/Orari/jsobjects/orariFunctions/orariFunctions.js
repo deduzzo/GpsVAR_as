@@ -175,10 +175,11 @@ export default {
 
 	getAllConvenzionatiList: async () => {
 		this.allConvenzionatiList = await this.getAllConvenzionatiConBranca();
+		convenzionato
 	},
 
 	getAllConvenzionatiConBranca: async () => {
-		let data = await getAllConvenzionatiBranche.run();
+		let data = await getAllConvenzionatiBranche.data;
 		let out = [];
 		this.allConvenzionatiPerBrancaMap = {};
 		for (let riga of (data || [])) {
