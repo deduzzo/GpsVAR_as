@@ -7,9 +7,6 @@
   "defaultOptionValue": "null",
   "dynamicBindingPathList": [
     {
-      "key": "sourceData"
-    },
-    {
       "key": "accentColor"
     },
     {
@@ -17,15 +14,18 @@
     },
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "sourceData"
     }
   ],
   "dynamicHeight": "FIXED",
   "dynamicPropertyPathList": [
     {
-      "key": "sourceData"
+      "key": "isDisabled"
     },
     {
-      "key": "isDisabled"
+      "key": "sourceData"
     }
   ],
   "dynamicTriggerPathList": [
@@ -65,7 +65,7 @@
   "responsiveBehavior": "fill",
   "rightColumn": 29,
   "serverSideFiltering": false,
-  "sourceData": "{{orariFunctions.getAllConvenzionatiList()}}",
+  "sourceData": "{{orariFunctions.allConvenzionatiList}}",
   "topRow": 0,
   "type": "SELECT_WIDGET",
   "version": 1,

@@ -76,7 +76,7 @@
     "dynamicBindingPathList": [],
     "name": "getAllConvenzionatiBranche",
     "pageId": "Orari",
-    "runBehaviour": "AUTOMATIC",
+    "runBehaviour": "MANUAL",
     "userSetOnLoad": true
   }
 }
