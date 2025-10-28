@@ -1,6 +1,6 @@
 {
-  "gitSyncId": "6808fda53361a34d8231cac0_0ae9c660-dbe1-45b8-91f1-dfffad651c8f",
-  "id": "Orari_aggiungiConvenzionatoBranca",
+  "gitSyncId": "6808fda53361a34d8231cac0_9251115c-7cf3-4dfe-82e6-0ed3ba4cf271",
+  "id": "Orari_addNuovoPresidio",
   "pluginId": "google-sheets-plugin",
   "pluginType": "SAAS",
   "unpublishedAction": {
@@ -29,15 +29,13 @@
           "data": ""
         },
         "rowObjects": {
-          "data": "{\n\t\"id\": {{ Math.max(...Object.keys(orariFunctions.allConvenzionatiPerBrancaMap)) + 1}},\n\t\"id_convenzionato\": {{ convenzionato_cmb.selectedOptionValue}},\n\t\"branca\": {{ branca_cmb.selectedOptionValue}},\n\t\"attivo\": \"SI\"\n}"
+          "data": "{\n\t\"id\": {{Math.max(...Object.keys(orariFunctions.allPresidiMap)) +1}},\n\t\"presidio\": {{nuovoPresidioDescrizione.text.trim()}},\n\t\"in_asp\": {{nuovoPresidioInAsp.isChecked ? \"SI\": \"NO\"}},\n\t\"distretto\": {{nuovoPresidioDistretto.selectedOptionValue}}\n}"
         },
         "sheetName": {
-          "data": "convenzionati_branche"
+          "data": "convenzionati_presidi"
         },
         "sheetUrl": {
-          "componentData": "",
-          "data": "https://docs.google.com/spreadsheets/d/186jsr4bHqJ60W8_WEg_RJdu14jYVQ6RI8VRNVe80gWg",
-          "viewType": "json"
+          "data": "https://docs.google.com/spreadsheets/d/186jsr4bHqJ60W8_WEg_RJdu14jYVQ6RI8VRNVe80gWg/edit"
         },
         "smartSubstitution": {
           "data": true
@@ -66,7 +64,7 @@
         "key": "formData.rowObjects.data"
       }
     ],
-    "name": "aggiungiConvenzionatoBranca",
+    "name": "addNuovoPresidio",
     "pageId": "Orari",
     "runBehaviour": "MANUAL",
     "userSetOnLoad": false

@@ -20,6 +20,9 @@
   "dynamicTriggerPathList": [
     {
       "key": "groupButtons.groupButton1.onClick"
+    },
+    {
+      "key": "groupButtons.groupButton2.onClick"
     }
   ],
   "groupButtons": {
@@ -49,6 +52,7 @@
       "isVisible": true,
       "label": "Presidio",
       "menuItems": {},
+      "onClick": "{{showModal(nuovoPresidioMdl.name);}}",
       "placement": "CENTER",
       "widgetId": ""
     }

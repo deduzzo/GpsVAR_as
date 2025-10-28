@@ -46,6 +46,10 @@
       {
         "name": "distrettoCambiato",
         "value": "false"
+      },
+      {
+        "name": "orariVisualizzati",
+        "value": "{}"
       }
     ]
   }

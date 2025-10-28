@@ -1,6 +1,6 @@
 {
-  "gitSyncId": "6808fda53361a34d8231cac0_0ae9c660-dbe1-45b8-91f1-dfffad651c8f",
-  "id": "Orari_aggiungiConvenzionatoBranca",
+  "gitSyncId": "6808fda53361a34d8231cac0_3b725c54-7fd1-4fc7-b145-48e4efa88df2",
+  "id": "Orari_softDeleteOrarioFromIndex",
   "pluginId": "google-sheets-plugin",
   "pluginType": "SAAS",
   "unpublishedAction": {
@@ -8,7 +8,7 @@
       "encodeParamsToggle": true,
       "formData": {
         "command": {
-          "data": "INSERT_ONE"
+          "data": "UPDATE_ONE"
         },
         "entityType": {
           "data": "ROWS"
@@ -28,16 +28,17 @@
         "range": {
           "data": ""
         },
+        "rowIndex": {
+          "data": "{{this.params.rowIndex}}"
+        },
         "rowObjects": {
-          "data": "{\n\t\"id\": {{ Math.max(...Object.keys(orariFunctions.allConvenzionatiPerBrancaMap)) + 1}},\n\t\"id_convenzionato\": {{ convenzionato_cmb.selectedOptionValue}},\n\t\"branca\": {{ branca_cmb.selectedOptionValue}},\n\t\"attivo\": \"SI\"\n}"
+          "data": "{{this.params.orario}}"
         },
         "sheetName": {
-          "data": "convenzionati_branche"
+          "data": "convenzionati_orari"
         },
         "sheetUrl": {
-          "componentData": "",
-          "data": "https://docs.google.com/spreadsheets/d/186jsr4bHqJ60W8_WEg_RJdu14jYVQ6RI8VRNVe80gWg",
-          "viewType": "json"
+          "data": "https://docs.google.com/spreadsheets/d/186jsr4bHqJ60W8_WEg_RJdu14jYVQ6RI8VRNVe80gWg/edit"
         },
         "smartSubstitution": {
           "data": true
@@ -63,10 +64,13 @@
     },
     "dynamicBindingPathList": [
       {
+        "key": "formData.rowIndex.data"
+      },
+      {
         "key": "formData.rowObjects.data"
       }
     ],
-    "name": "aggiungiConvenzionatoBranca",
+    "name": "softDeleteOrarioFromIndex",
     "pageId": "Orari",
     "runBehaviour": "MANUAL",
     "userSetOnLoad": false

@@ -17,6 +17,7 @@ export default {
 	allConvenzionatiList: null,
 	allConvenzionatiPerBrancaMap: null,
 	distrettoCambiato: false,
+	orariVisualizzati: {},
 
 	/* =======================
 	   LOAD INIZIALE
@@ -164,6 +165,7 @@ export default {
 			branca_cmb.setSelectedOption("");
 			getAllConvenzionatiBranche.run().then(() => {
 				closeModal(caricamentoMdl.name);
+				this.getAllConvenzionatiList();
 			});
 		}).catch((err) => {
 			closeModal(caricamentoMdl.name);
@@ -275,9 +277,10 @@ export default {
 
 			// Inizializza array per ciascun giorno
 			for (let giorno of this.getGiorniDellaSettimana()) out[giorno] = [];
-
+			this.orariVisualizzati = {};
 			// Inserisce righe orario
 			for (let orario of orarioConvenzionato) {
+				this.orariVisualizzati[orario.rowIndex] = orario;
 				const presidio = this.allPresidiMap[orario['id_presidio']] || {};
 				out[this.getGiorniDellaSettimana()[orario['giorno_settimana']]]
 					.push({
@@ -346,11 +349,13 @@ export default {
 	},
 
 	modificaOrario: async (rowIndex = 2) => {
+		showModal(caricamentoMdl.name);
 		let orario = await getOrarioByRowIndex.run({ rowIndex });
 		if (Array.isArray(orario) && orario.length > 0) {
 			orario = orario[0];
-			orario.convenzionato = this.allConvenzionatiMap[orario.id_convenzionato];
+			orario.convenzionato = this.allConvenzionatiMap[this.allConvenzionatiPerBrancaMap[orario.id_convenzionato].id_convenzionato];
 			storeValue('orarioDaModificare', orario);
+		  closeModal(caricamentoMdl.name);
 			showModal(modificaOrarioModal.name);
 		}
 	},
@@ -777,5 +782,19 @@ export default {
 	mostraAnteprimaOrario: async () => {
 		await this.generaPdfOrari(raggruppaPerBrancaChk.isChecked ?"branca": "specialista");
 		showModal(stampaOrarioModal.name);
+	},
+	onDeleteOrario: (rowIndex) => {
+		console.log(rowIndex);
+		let orario = this.orariVisualizzati[rowIndex];
+		orario.attivo = "NO";
+		orario.attivo_fino_a = moment().format("YYYY-MM-DD");
+		softDeleteOrarioFromIndex.run({orario}).then(() => {
+			showAlert("Orario disattivato Correttamente","info")
+		});
+	},
+	resetPresidioModal: () => {
+		nuovoPresidioDistretto.setSelectedOption("");
+		nuovoPresidioDescrizione.setValue("");
+		nuovoPresidioInAsp.setValue(true);
 	}
 };
