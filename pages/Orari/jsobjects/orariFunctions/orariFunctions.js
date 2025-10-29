@@ -877,5 +877,15 @@ verificaOrariSingoliOk: (soloOrari = false) => {
 			if (riga.id_convenzionato === id_convenzionato && riga.branca === branca)
 				ok = false;
 		return ok;
+	},
+	addNuovoPresidio: () => {
+		showModal(caricamentoMdl.name);
+		addNuovoPresidio.run().then(() => {
+			this.getAllPresidiMap();
+			this.resetPresidioModal();
+			closeModal(nuovoPresidioMdl.name);
+			closeModal(caricamentoMdl.name);
+			showAlert("Nuovo presidio inserito correttamente", "success");
+		});
 	}
 };

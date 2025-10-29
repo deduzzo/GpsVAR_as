@@ -21,6 +21,9 @@
   "dynamicPropertyPathList": [
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
     }
   ],
   "dynamicTriggerPathList": [
@@ -40,7 +43,7 @@
   "mobileRightColumn": 63,
   "mobileTopRow": 18,
   "needsErrorInfo": false,
-  "onClick": "{{addNuovoPresidio.run().then(() => {\n  closeModal(nuovoPresidioModal.name);\n  showAlert('Presidio inserito correttamente', 'success');\n  orariFunctions.getAllPresidiMap();\n  orariFunctions.resetPresidioModal();\n}).catch(() => {\n  showAlert('Errore nel caricamento del presidio', 'error');\n});}}",
+  "onClick": "{{orariFunctions.addNuovoPresidio()}}",
   "parentId": "wh79lbqeip",
   "placement": "CENTER",
   "recaptchaType": "V3",

@@ -56,7 +56,9 @@
           "data": {
             "children": [
               {
-                "condition": "LT"
+                "condition": "EQ",
+                "key": "RAPPORTO",
+                "value": "SPTI"
               }
             ],
             "condition": "AND"
