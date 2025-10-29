@@ -2,9 +2,9 @@
   "accentColor": "{{appsmith.theme.colors.primaryColor}}",
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 7,
+  "bottomRow": 19,
   "boxShadow": "none",
-  "defaultOptionValue": "null",
+  "defaultOptionValue": "{{ ((options, serverSideFiltering) => ( appsmith.store.orarioDaModificare.id_presidio))(modificaOrarioPresidio.options, modificaOrarioPresidio.serverSideFiltering) }}",
   "dynamicBindingPathList": [
     {
       "key": "accentColor"
@@ -13,62 +13,55 @@
       "key": "borderRadius"
     },
     {
-      "key": "isDisabled"
+      "key": "sourceData"
     },
     {
-      "key": "sourceData"
+      "key": "defaultOptionValue"
     }
   ],
   "dynamicHeight": "FIXED",
   "dynamicPropertyPathList": [
     {
-      "key": "isDisabled"
-    },
-    {
       "key": "sourceData"
     }
   ],
-  "dynamicTriggerPathList": [
-    {
-      "key": "onOptionChange"
-    }
-  ],
-  "isDisabled": "{{ getAllConvenzionati.isLoading }}",
+  "dynamicTriggerPathList": [],
+  "isDisabled": false,
   "isFilterable": true,
   "isLoading": false,
   "isRequired": true,
   "isVisible": true,
-  "key": "5okc8199n1",
+  "key": "d8ui0xzul6",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Convenzionato",
+  "labelText": "Presidio",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
-  "leftColumn": 5,
+  "leftColumn": 1,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "minWidth": 450,
-  "mobileBottomRow": 8,
-  "mobileLeftColumn": 0,
-  "mobileRightColumn": 20,
-  "mobileTopRow": 1,
+  "mobileBottomRow": 16,
+  "mobileLeftColumn": 1,
+  "mobileRightColumn": 21,
+  "mobileTopRow": 9,
   "needsErrorInfo": false,
-  "onOptionChange": "{{orariFunctions.getOrarioConvenzionatoSelezionato();}}",
   "optionLabel": "label",
   "optionValue": "value",
-  "originalBottomRow": 17,
-  "originalTopRow": 10,
-  "parentId": "0",
+  "originalBottomRow": 20,
+  "originalTopRow": 13,
+  "parentColumnSpace": 9.84375,
+  "parentId": "y0t1jrcpqh",
   "parentRowSpace": 10,
-  "placeholderText": "Seleziona il convenzionato...",
+  "placeholderText": "Select option",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 29,
+  "rightColumn": 44,
   "serverSideFiltering": false,
-  "sourceData": "{{orariFunctions.allConvenzionatiList}}",
-  "topRow": 0,
+  "sourceData": "{{getAllPresidi.data.map( (obj) =>{ return  {'label': obj.presidio, 'value': obj.id } })}}",
+  "topRow": 12,
   "type": "SELECT_WIDGET",
   "version": 1,
-  "widgetId": "gj31j0a7i0",
-  "widgetName": "convenzionatoSelezionato"
+  "widgetId": "70zc8mgvx0",
+  "widgetName": "modificaOrarioPresidio"
 }

@@ -11,9 +11,13 @@
     },
     {
       "key": "borderRadius"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicHeight": "AUTO_HEIGHT",
+  "dynamicTriggerPathList": [],
   "fontFamily": "{{appsmith.theme.fontFamily.appFont}}",
   "fontSize": "1.25rem",
   "fontStyle": "BOLD",
@@ -29,13 +33,15 @@
   "mobileRightColumn": 41,
   "mobileTopRow": 1,
   "needsErrorInfo": false,
+  "originalBottomRow": 7,
+  "originalTopRow": 1,
   "overflow": "NONE",
   "parentId": "eyrih203y8",
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 41,
+  "rightColumn": 57,
   "shouldTruncate": false,
-  "text": "Modal Title",
+  "text": "Stampa orario Specialisti aggiornato al {{moment().format(\"DD/MM/YYYY hh:mm\")}}",
   "textAlign": "LEFT",
   "textColor": "#231F20",
   "topRow": 1,

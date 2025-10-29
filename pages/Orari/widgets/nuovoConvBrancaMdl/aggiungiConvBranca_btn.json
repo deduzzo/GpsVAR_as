@@ -16,6 +16,9 @@
     },
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "tooltip"
     }
   ],
   "dynamicPropertyPathList": [
@@ -29,7 +32,7 @@
     }
   ],
   "isDefaultClickDisabled": true,
-  "isDisabled": "{{ ! convenzionato_cmb.selectedOptionValue || !branca_cmb.selectedOptionValue}}",
+  "isDisabled": "{{ ! convenzionato_cmb.selectedOptionValue || !branca_cmb.selectedOptionValue || (!orariFunctions.esisteConvenzionatoBranca(convenzionato_cmb.selectedOptionValue,branca_cmb.selectedOptionValue))}}",
   "isLoading": false,
   "isVisible": true,
   "key": "y77cy6ztv5",
@@ -49,6 +52,7 @@
   "responsiveBehavior": "hug",
   "rightColumn": 63,
   "text": "Aggiungi",
+  "tooltip": "{{(!orariFunctions.esisteConvenzionatoBranca(convenzionato_cmb.selectedOptionValue,branca_cmb.selectedOptionValue)) ? \"Esiste già lo stesso convenzionato a sistema con la branca selezionata\" : \"\"}}",
   "topRow": 20,
   "type": "BUTTON_WIDGET",
   "version": 1,

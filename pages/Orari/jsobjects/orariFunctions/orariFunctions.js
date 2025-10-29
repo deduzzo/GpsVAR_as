@@ -70,7 +70,7 @@ export default {
 
 	getMesi: () =>
 	"Gennaio_Febbraio_Marzo_Aprile_Maggio_Giugno_Luglio_Agosto_Settembre_Ottobre_Novembre_Dicembre".split("_"),
-	getGiorniDellaSettimana: () => "Lunedì_Martedì_Mercoledì_Giovedì_Venerdì_Sabato".split("_"),
+	getGiorniDellaSettimana: () => "Lunedì_Martedì_Mercoledì_Giovedì_Venerdì_Sabato_Domenica".split("_"),
 
 	getMesiMap() { return this.getMesi().map((m, i) => ({ mese: m, value: i + 1 })); },
 	getMeseItaliano(mese) { return this.getMesi()[mese - 1]; },
@@ -194,7 +194,7 @@ export default {
 			}
 			this.allConvenzionatiList = out;
 		})
-		},
+	},
 
 	mostraFormNuovoConvenzionato: () => {
 		convenzionato_cmb.setSelectedOption("");
@@ -348,24 +348,43 @@ export default {
 		return Array.isArray(data) ? data.reduce((tot, item) => tot + (item["ore"] || 0), 0) : 0;
 	},
 
-	modificaOrario: async (rowIndex = 2) => {
+	modificaOrario: async (rowIndex, nuovo = false) => {
+		let orario = null;
 		showModal(caricamentoMdl.name);
-		let orario = await getOrarioByRowIndex.run({ rowIndex });
-		if (Array.isArray(orario) && orario.length > 0) {
-			orario = orario[0];
-			orario.convenzionato = this.allConvenzionatiMap[this.allConvenzionatiPerBrancaMap[orario.id_convenzionato].id_convenzionato];
-			storeValue('orarioDaModificare', orario);
-		  closeModal(caricamentoMdl.name);
-			showModal(modificaOrarioModal.name);
+		if (rowIndex && !nuovo) {
+			const orarioRow = await getOrarioByRowIndex.run({ rowIndex });
+			if (Array.isArray(orarioRow) && orarioRow.length > 0) {
+				orario = orarioRow[0];
+				orario.convenzionato = this.allConvenzionatiMap[this.allConvenzionatiPerBrancaMap[orario.id_convenzionato].id_convenzionato];
+			}
 		}
+		else {
+			// nuovo orario
+			orario = {
+				id_presidio: "",
+				id_convenzionato: convenzionatoSelezionato.selectedOptionValue,
+				convenzionato: this.allConvenzionatiMap[this.allConvenzionatiPerBrancaMap[convenzionatoSelezionato.selectedOptionValue].id_convenzionato],
+				giorno_settimana: "",
+				ingresso: "",
+				uscita: "",
+				attivo: "SI",
+				attivo_da: moment().format("YYYY-MM-DD"),
+				attivo_fino_a: "",
+				rowIndex: null
+			}
+		}
+		storeValue('orarioDaModificare', orario);
+		closeModal(caricamentoMdl.name);
+		showModal(modificaOrarioModal.name);
+
 	},
 
 	onOrarioChange: async (tag, time) => {
 		let orarioDaModificare = appsmith.store.orarioDaModificare || {};
 
 		// Salvataggio precedenti
-		const prevIngresso = orarioDaModificare.ingresso;
-		const prevUscita = orarioDaModificare.uscita;
+		//const prevIngresso = orarioDaModificare.ingresso;
+		//const prevUscita = orarioDaModificare.uscita;
 
 		// Update campo
 		if (tag === "inizio") orarioDaModificare.ingresso = time;
@@ -373,23 +392,33 @@ export default {
 
 		// Validazione
 		if (orarioDaModificare.ingresso && orarioDaModificare.uscita) {
-			if (!this.verificaOrariSingoliOk()) {
+			if (!this.verificaOrariSingoliOk(true)) {
 				showAlert("⚠️ L'orario di ingresso non può essere successivo all'orario di uscita!", "warning");
-				if (tag === "inizio") orarioDaModificare.ingresso = prevIngresso;
-				else orarioDaModificare.uscita = prevUscita;
+				//if (tag === "inizio") orarioDaModificare.ingresso = prevIngresso;
+				//else orarioDaModificare.uscita = prevUscita;
 			}
 		}
 		await storeValue("orarioDaModificare", orarioDaModificare);
+		console.log(orarioDaModificare);
 	},
 
-	verificaOrariSingoliOk: () => {
-		if (appsmith.store.orarioDaModificare?.ingresso && appsmith.store.orarioDaModificare?.uscita) {
-			const tInizio = new Date(`1970-01-01T${appsmith.store.orarioDaModificare.ingresso}:00`);
-			const tFine = new Date(`1970-01-01T${appsmith.store.orarioDaModificare.uscita}:00`);
-			return (tInizio < tFine);
-		}
-		return false;
-	},
+verificaOrariSingoliOk: (soloOrari = false) => {
+    if (!soloOrari) {
+        if (modificaOrarioGiornoCmb.selectedOptionValue === "" || 
+            modificaOrarioPresidio.selectedOptionValue === "") {
+            return false;
+        }
+    }
+    
+    if (appsmith.store.orarioDaModificare.ingresso && 
+        appsmith.store.orarioDaModificare.uscita) {
+        const tInizio = moment(appsmith.store.orarioDaModificare.ingresso, 'H:mm');
+        const tFine = moment(appsmith.store.orarioDaModificare.uscita, 'H:mm');
+        return tInizio.isBefore(tFine);
+    }
+    
+    return false;
+},
 
 	// Giorni standard
 	DAYS() { return this.getGiorniDellaSettimana(); },
@@ -436,12 +465,12 @@ export default {
 		: 0;
 
 		const presList = Array.isArray(entry?.perPresidio) && entry.perPresidio.length
-		? entry.perPresidio.map(p => `• ${p.presidio}: ${this.fmtHours(p.ore)}`).join("\n")
-		: "• —";
+		? entry.perPresidio.map(p => `${p.presidio}: ${this.fmtHours(p.ore)}`).join(", ")
+		: "—";
 
 		const distList = entry?.perDistretto && Object.keys(entry.perDistretto).length
-		? Object.values(entry.perDistretto).map(d => `• ${d.distretto}: ${this.fmtHours(d.ore)}`).join("\n")
-		: "• —";
+		? Object.values(entry.perDistretto).map(d => `${d.distretto}: ${this.fmtHours(d.ore)}`).join(", ")
+		: "—";
 
 		// Nome dello specialista (senza CI)
 		const nome = this.fmtCognomeNome(c);
@@ -541,13 +570,14 @@ export default {
 		const body = this.buildTableBody({ dati, raggruppaPer });
 
 		const columnStyles = {
-			0: { cellWidth: 65, halign: "center", valign: "top" }, // PRIMA COLONNA centrata
-			1: { cellWidth: 35.3, halign: "center", valign: "top" },
-			2: { cellWidth: 35.3, halign: "center", valign: "top" },
-			3: { cellWidth: 35.3, halign: "center", valign: "top" },
-			4: { cellWidth: 35.3, halign: "center", valign: "top" },
-			5: { cellWidth: 35.3, halign: "center", valign: "top" },
-			6: { cellWidth: 35.3, halign: "center", valign: "top" }
+			0: { cellWidth: 52, halign: "center", valign: "top" }, // PRIMA COLONNA centrata (-20%: 65 -> 52)
+			1: { cellWidth: 31.8, halign: "center", valign: "top" }, // (-10%: 35.3 -> 31.8)
+			2: { cellWidth: 31.8, halign: "center", valign: "top" },
+			3: { cellWidth: 31.8, halign: "center", valign: "top" },
+			4: { cellWidth: 31.8, halign: "center", valign: "top" },
+			5: { cellWidth: 31.8, halign: "center", valign: "top" },
+			6: { cellWidth: 31.8, halign: "center", valign: "top" },
+			7: { cellWidth: 31.8, halign: "center", valign: "top" } // Domenica
 		};
 
 		const slotColors = [
@@ -597,7 +627,12 @@ export default {
 			didParseCell(data) {
 				const { column, cell, doc } = data;
 
-				if (column.index >= 1 && column.index <= 6 && cell?.raw && typeof cell.raw === "object" && cell.raw.kind === "slots") {
+				// Imposto altezza minima di 35mm (~100px) per le righe degli orari
+				if (column.index === 0 && cell?.raw && typeof cell.raw === "object" && cell.raw.kind === "specialista") {
+					cell.styles.minCellHeight = Math.max(cell.styles.minCellHeight || 0, 35);
+				}
+
+				if (column.index >= 1 && column.index <= 7 && cell?.raw && typeof cell.raw === "object" && cell.raw.kind === "slots") {
 					const slots = Array.isArray(cell.raw.slots) ? cell.raw.slots : [];
 					cell.text = [""]; // non lasciare testo "fantasma"
 
@@ -609,7 +644,7 @@ export default {
 						cellWidth: cell.width,
 						slots
 					});
-					cell.styles.minCellHeight = Math.max(cell.styles.minCellHeight || 0, needH);
+					cell.styles.minCellHeight = Math.max(cell.styles.minCellHeight || 0, needH, 35); // minimo 35mm
 				}
 			},
 
@@ -649,12 +684,14 @@ export default {
 
 					// Presidi
 					doc.setFont(undefined, "bold");
+					doc.setFontSize(7);
 					doc.text("Presidi:", x, y);
 					y += 2.8;
 					doc.setFont(undefined, "normal");
 					doc.setFontSize(6.5);
 					doc.setTextColor(50);
-					const presidiLines = (presidi || "").split("\n");
+					const maxWidth = cell.width - 4; // larghezza disponibile con margini
+					const presidiLines = doc.splitTextToSize(presidi || "—", maxWidth);
 					for (const line of presidiLines) {
 						doc.text(line, x, y);
 						y += 2.5;
@@ -670,7 +707,7 @@ export default {
 					doc.setFont(undefined, "normal");
 					doc.setFontSize(6.5);
 					doc.setTextColor(50);
-					const distrettiLines = (distretti || "").split("\n");
+					const distrettiLines = doc.splitTextToSize(distretti || "—", maxWidth);
 					for (const line of distrettiLines) {
 						doc.text(line, x, y);
 						y += 2.5;
@@ -681,8 +718,8 @@ export default {
 					return;
 				}
 
-				// Gestione colonne giorni (1-6)
-				if (!(column.index >= 1 && column.index <= 6)) return;
+				// Gestione colonne giorni (1-7: Lunedì-Domenica)
+				if (!(column.index >= 1 && column.index <= 7)) return;
 				if (!cell?.raw || typeof cell.raw !== "object" || cell.raw.kind !== "slots") return;
 
 				const slots = Array.isArray(cell.raw.slots) ? cell.raw.slots : [];
@@ -796,5 +833,49 @@ export default {
 		nuovoPresidioDistretto.setSelectedOption("");
 		nuovoPresidioDescrizione.setValue("");
 		nuovoPresidioInAsp.setValue(true);
+	},
+	gestisciOrarioDaModificare: () => {
+		showModal(caricamentoMdl.name);
+		const orarioDaModificare = appsmith.store.orarioDaModificare;
+		if (orarioDaModificare.rowIndex !== null) {
+			// modifica orario
+			updateOrarioFromRow.run({ row: {
+				rowIndex: orarioDaModificare.rowIndex,
+				giorno_settimana: modificaOrarioGiornoCmb.selectedOptionValue,
+				ingresso: orarioDaModificare.ingresso,
+				uscita: orarioDaModificare.uscita,
+				id_presidio: modificaOrarioPresidio.selectedOptionValue
+			}}).then(() => {
+					closeModal(caricamentoMdl.name);
+				this.getOrarioConvenzionatoSelezionato();
+			});
+			
+		}
+		else {
+			// nuovo
+				addNuovoOrario.run({ row: {
+					id_convenzionato: convenzionatoSelezionato.selectedOptionValue,
+				giorno_settimana: modificaOrarioGiornoCmb.selectedOptionValue,
+				ingresso: orarioDaModificare.ingresso,
+				uscita: orarioDaModificare.uscita,
+					attivo: "SI",
+					attivo_da: moment().format("YYYY-DD-MM"),
+				id_presidio: modificaOrarioPresidio.selectedOptionValue
+			}}).then(() => {
+					closeModal(caricamentoMdl.name);
+				this.getOrarioConvenzionatoSelezionato();
+			});
+		}
+		closeModal(caricamentoMdl.name);
+		storeValue("orarioDaModificare", null);
+	},
+	esisteConvenzionatoBranca: (id_convenzionato, branca) => {
+		let ok = true;
+		if (id_convenzionato === "" || branca === "")
+			return true;
+		for (let riga of Object.values(this.allConvenzionatiPerBrancaMap))
+			if (riga.id_convenzionato === id_convenzionato && riga.branca === branca)
+				ok = false;
+		return ok;
 	}
 };

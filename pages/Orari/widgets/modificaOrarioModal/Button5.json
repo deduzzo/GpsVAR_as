@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 36,
+  "bottomRow": 32,
   "boxShadow": "none",
   "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
   "buttonStyle": "PRIMARY_BUTTON",
@@ -16,14 +16,24 @@
     },
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "text"
     }
   ],
   "dynamicPropertyPathList": [
     {
       "key": "isDisabled"
+    },
+    {
+      "key": "onClick"
     }
   ],
-  "dynamicTriggerPathList": [],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
   "isDefaultClickDisabled": true,
   "isDisabled": "{{!orariFunctions.verificaOrariSingoliOk()}}",
   "isLoading": false,
@@ -36,6 +46,7 @@
   "mobileRightColumn": 63,
   "mobileTopRow": 18,
   "needsErrorInfo": false,
+  "onClick": "{{ orariFunctions.gestisciOrarioDaModificare() }}",
   "originalBottomRow": 22,
   "originalTopRow": 18,
   "parentId": "y0t1jrcpqh",
@@ -45,8 +56,8 @@
   "resetFormOnClick": false,
   "responsiveBehavior": "hug",
   "rightColumn": 63,
-  "text": "Modifica",
-  "topRow": 32,
+  "text": "{{appsmith.store.orarioDaModificare.rowIndex ? \"Modifica\": \"Aggiungi\"}}",
+  "topRow": 28,
   "type": "BUTTON_WIDGET",
   "version": 1,
   "widgetId": "9fxx4etbh9",

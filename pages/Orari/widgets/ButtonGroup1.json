@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 8,
+  "bottomRow": 10,
   "boxShadow": "none",
   "buttonVariant": "PRIMARY",
   "childStylesheet": {
@@ -15,6 +15,20 @@
     },
     {
       "key": "groupButtons.groupButton1.buttonColor"
+    },
+    {
+      "key": "groupButtons.groupButtonyg5aijj2os.buttonColor"
+    },
+    {
+      "key": "groupButtons.groupButtonyg5aijj2os.isDisabled"
+    }
+  ],
+  "dynamicPropertyPathList": [
+    {
+      "key": "groupButtons.groupButtonyg5aijj2os.isDisabled"
+    },
+    {
+      "key": "groupButtons.groupButtonyg5aijj2os.onClick"
     }
   ],
   "dynamicTriggerPathList": [
@@ -23,6 +37,9 @@
     },
     {
       "key": "groupButtons.groupButton2.onClick"
+    },
+    {
+      "key": "groupButtons.groupButtonyg5aijj2os.onClick"
     }
   ],
   "groupButtons": {
@@ -30,9 +47,9 @@
       "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
       "buttonType": "SIMPLE",
       "disabledWhenInvalid": false,
-      "iconName": "add",
+      "iconName": "new-person",
       "id": "groupButton1",
-      "index": 0,
+      "index": 1,
       "isDisabled": false,
       "isVisible": true,
       "label": "Convenzionato",
@@ -45,9 +62,9 @@
       "buttonColor": "#e15615",
       "buttonType": "SIMPLE",
       "disabledWhenInvalid": false,
-      "iconName": "add",
+      "iconName": "home",
       "id": "groupButton2",
-      "index": 1,
+      "index": 2,
       "isDisabled": false,
       "isVisible": true,
       "label": "Presidio",
@@ -55,13 +72,30 @@
       "onClick": "{{showModal(nuovoPresidioMdl.name);}}",
       "placement": "CENTER",
       "widgetId": ""
+    },
+    "groupButtonyg5aijj2os": {
+      "buttonColor": "{{appsmith.theme.colors.primaryColor}}",
+      "buttonType": "SIMPLE",
+      "iconName": "array-timestamp",
+      "id": "groupButtonyg5aijj2os",
+      "index": 0,
+      "isDisabled": "{{convenzionatoSelezionato.selectedOptionValue === \"\"}}",
+      "isSeparator": false,
+      "isVisible": true,
+      "itemType": "BUTTON",
+      "label": "Nuovo Turno",
+      "menuItems": {},
+      "onClick": "{{orariFunctions.modificaOrario(null,true)}}",
+      "placement": "CENTER",
+      "variant": "filled",
+      "widgetId": "s2nn7z2t63"
     }
   },
   "isCanvas": false,
   "isLoading": false,
   "isVisible": true,
   "key": "mqw842drbi",
-  "leftColumn": 44,
+  "leftColumn": 40,
   "minWidth": 450,
   "mobileBottomRow": 8,
   "mobileLeftColumn": 28,
@@ -74,8 +108,8 @@
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
   "responsiveBehavior": "fill",
-  "rightColumn": 61,
-  "topRow": 4,
+  "rightColumn": 59,
+  "topRow": 6,
   "type": "BUTTON_GROUP_WIDGET",
   "version": 1,
   "widgetId": "qn5izfqtob",

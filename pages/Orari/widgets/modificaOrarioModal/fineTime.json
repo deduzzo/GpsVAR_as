@@ -5,7 +5,7 @@
   "borderWidth": "0",
   "bottomRow": 26,
   "boxShadow": "none",
-  "defaultModel": "{\n\"time\": \"{{appsmith.store.orarioDaModificare.ingresso}}\",\n\t\t\t\"text\": \"Ingresso\",\n\t\t\t\"size\":\"S\"\n}",
+  "defaultModel": "{\n\"time\": \"{{appsmith.store.orarioDaModificare.uscita}}\",\n\t\t\t\"text\": \"Uscita\",\n\t\t\t\"size\":\"S\"\n}",
   "dynamicBindingPathList": [
     {
       "key": "theme"
@@ -33,7 +33,7 @@
   "isSearchWildcard": true,
   "isVisible": true,
   "key": "wsnzwmdw9t",
-  "leftColumn": 1,
+  "leftColumn": 21,
   "maxDynamicHeight": 9000,
   "minDynamicHeight": 4,
   "mobileBottomRow": 38,
@@ -41,7 +41,7 @@
   "mobileRightColumn": 49,
   "mobileTopRow": 8,
   "needsErrorInfo": false,
-  "onChange": "{{orariFunctions.onOrarioChange('inizio', time);}}",
+  "onChange": "{{orariFunctions.onOrarioChange('fine', time);}}",
   "onResetClick": "{{showAlert('Successfully reset!!', '');}}",
   "originalBottomRow": 27,
   "originalTopRow": 21,
@@ -49,7 +49,7 @@
   "parentId": "y0t1jrcpqh",
   "parentRowSpace": 10,
   "renderMode": "CANVAS",
-  "rightColumn": 21,
+  "rightColumn": 41,
   "shouldScrollContents": true,
   "srcDoc": {
     "css": ".time-picker-widget {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  margin-left: auto;\n  background: none;\n  box-shadow: none;\n  border-radius: 0;\n  font-family: system-ui;\n  padding: 0;\n  min-width: 0;\n  min-height: 0;\n  overflow: visible;\n}\n\n.time-picker-label {\n  font-weight: 600;\n  font-size: 15px;\n  color: #222;\n  margin-right: 8px;\n}\n\n.time-selector {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n}\n\n.time-selector select {\n  appearance: none;\n  background: #f9f9f9;\n  border: 1px solid #d7d7d7;\n  border-radius: 4px;\n  outline: none;\n  transition: border-color 0.2s;\n  min-width: 0;\n  min-height: 0;\n  overflow: visible;\n}\n\n.time-selector select:focus {\n  border-color: var(--appsmith-theme-primaryColor);\n}\n\n.time-separator {\n  font-size: 16px;\n  font-weight: 700;\n  padding: 0 3px;\n  user-select: none;\n}\n\n.time-picker-xs {\n  font-size: 11px;\n  padding: 0;\n}\n\n.time-picker-xs select {\n  padding: 2px 4px;\n  font-size: 11px;\n}\n\n.time-picker-s {\n  font-size: 13px;\n  padding: 0;\n}\n\n.time-picker-s select {\n  padding: 5px 10px;\n  font-size: 13px;\n}\n\n.time-picker-m {\n  font-size: 15px;\n  padding: 0;\n}\n\n.time-picker-m select {\n  padding: 7px 13px;\n  font-size: 15px;\n}\n\n.time-picker-l {\n  font-size: 16px;\n  padding: 0;\n}\n\n.time-picker-l select {\n  padding: 8px 12px;\n  font-size: 16px;\n}\n\n.time-picker-xl {\n  font-size: 20px;\n  padding: 0;\n}\n\n.time-picker-xl select {\n  padding: 13px 22px;\n  font-size: 20px;\n}",
@@ -65,6 +65,6 @@
     "js": "import React from \"https://esm.sh/react@18.2.0\";\nimport ReactDOM from \"https://esm.sh/react-dom@18.2.0\";\n\nconst pad = (n) => n.toString().padStart(2, \"0\");\nfunction parseTime(str) {\n  if (typeof str !== \"string\") return { hour: 0, minute: 0 };\n  const [h, m] = str.split(\":\").map(Number);\n  if (!isNaN(h) && h >= 0 && h < 24 && !isNaN(m) && m >= 0 && m < 60) {\n    return { hour: h, minute: m };\n  }\n  return { hour: 0, minute: 0 };\n}\n\nconst sizeClassMap = {\n  XS: \"time-picker-xs\",\n  S: \"time-picker-s\",\n  M: \"time-picker-m\",\n  L: \"time-picker-l\",\n  XL: \"time-picker-xl\",\n};\n\nfunction TimePicker() {\n  // Lettura parametri dal model\n  const getModelParams = () => {\n    const initialStr = appsmith.model?.time || \"00:00\";\n    const sizeRaw = appsmith.model?.size || \"L\";\n    const size = (typeof sizeRaw === \"string\" && sizeClassMap[sizeRaw.toUpperCase()]) ? sizeRaw.toUpperCase() : \"L\";\n    const text = typeof appsmith.model?.text === \"string\" && appsmith.model?.text.trim() ? appsmith.model.text : \"Orario\";\n    return { initialStr, size, text };\n  };\n\n  // Modalità manuale - se true usa model.forceUpdate per forzare la rilettura\n  const manualMode = !!appsmith.model?.forceManualUpdate;\n  const [time, setTime] = React.useState(() => parseTime(getModelParams().initialStr));\n  const [sizeState, setSizeState] = React.useState(getModelParams().size);\n  const [textState, setTextState] = React.useState(getModelParams().text);\n  // Traccia contatore di invalidamento manuale\n  const [updateSeed, setUpdateSeed] = React.useState(appsmith.model?.updateSeed || 0);\n\n  // Aggiornamento automatico: se manualMode = false ascolta il model normalmente\n  React.useEffect(() => {\n    if (manualMode) return; // In modalità manuale non reagire alle modifiche normali\n    return appsmith.onModelChange((model, prevModel) => {\n      if (model?.time !== prevModel?.time) {\n        setTime(parseTime(model?.time));\n      }\n      if (model?.size !== prevModel?.size && sizeClassMap[model?.size?.toUpperCase()]) {\n        setSizeState(model.size.toUpperCase());\n      }\n      if (model?.text !== prevModel?.text && typeof model.text === \"string\" && model.text.trim()) {\n        setTextState(model.text);\n      }\n    });\n  }, [manualMode]);\n\n  // Modalità manuale: aggiorna solo quando updateSeed cambia (forza rilettura)\n  React.useEffect(() => {\n    if (!manualMode) return;\n    setTime(parseTime(getModelParams().initialStr));\n    setSizeState(getModelParams().size);\n    setTextState(getModelParams().text);\n  }, [updateSeed, manualMode]);\n\n  // Forza aggiornamento se updateSeed cambia esternamente\n  React.useEffect(() => {\n    if (!manualMode) return;\n    setUpdateSeed(appsmith.model?.updateSeed || 0);\n  }, [appsmith.model?.updateSeed, manualMode]);\n\n  const handleChange = React.useCallback((e) => {\n    const name = e.target.name;\n    const value = parseInt(e.target.value, 10) || 0;\n    const newTime = { ...time, [name]: value };\n    setTime(newTime);\n    appsmith.triggerEvent(\"onChange\", {time: pad(newTime.hour) + \":\" + pad(newTime.minute)});\n  }, [time]);\n\n  const hourOptions = [];\n  for (let i = 0; i < 24; ++i) hourOptions.push(<option key={i} value={i}>{pad(i)}</option>);\n  const minOptions = [];\n  for (let i = 0; i < 60; ++i) minOptions.push(<option key={i} value={i}>{pad(i)}</option>);\n\n  return (\n    <div className={`time-picker-widget ${sizeClassMap[sizeState] || sizeClassMap.L}`}>\n      <label className=\"time-picker-label\">{textState}:</label>\n      <div className=\"time-selector\">\n        <select name=\"hour\" value={time.hour} onChange={handleChange}>\n          {hourOptions}\n        </select>\n        <span className=\"time-separator\">:</span>\n        <select name=\"minute\" value={time.minute} onChange={handleChange}>\n          {minOptions}\n        </select>\n      </div>\n    </div>\n  );\n}\n\nappsmith.onReady(() => {\n  ReactDOM.render(<TimePicker />, document.getElementById(\"root\"));\n});\n\n// Modalità manuale: aggiungi forceManualUpdate: true e updateSeed (numero) nel model.\n// Quando modifichi updateSeed (ad esempio incrementandolo), il widget rilegge i valori dal model."
   },
   "version": 1,
-  "widgetId": "nz4lurb1sy",
-  "widgetName": "inizioTime"
+  "widgetId": "pnphyvcp70",
+  "widgetName": "fineTime"
 }

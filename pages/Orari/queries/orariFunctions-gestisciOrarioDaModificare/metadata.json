@@ -1,20 +1,12 @@
 {
-  "gitSyncId": "6808fda53361a34d8231cac0_c0efd228-b80e-4e28-adf4-812d4a89d10b",
-  "id": "Orari_orariFunctions.modificaOrario",
+  "gitSyncId": "6808fda53361a34d8231cac0_fc08060b-65d7-4283-ad5a-ff3bc78edefd",
+  "id": "Orari_orariFunctions.gestisciOrarioDaModificare",
   "pluginId": "js-plugin",
   "pluginType": "JS",
   "unpublishedAction": {
     "actionConfiguration": {
       "encodeParamsToggle": true,
-      "jsArguments": [
-        {
-          "name": "rowIndex"
-        },
-        {
-          "name": "nuovo",
-          "value": "{{false}}"
-        }
-      ],
+      "jsArguments": [],
       "paginationType": "NONE",
       "timeoutInMillisecond": 10000
     },
@@ -30,8 +22,8 @@
         "key": "body"
       }
     ],
-    "fullyQualifiedName": "orariFunctions.modificaOrario",
-    "name": "modificaOrario",
+    "fullyQualifiedName": "orariFunctions.gestisciOrarioDaModificare",
+    "name": "gestisciOrarioDaModificare",
     "pageId": "Orari",
     "runBehaviour": "MANUAL",
     "userSetOnLoad": false
