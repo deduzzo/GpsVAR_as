@@ -1,7 +1,7 @@
 {
   "animateLoading": true,
   "borderRadius": "{{appsmith.theme.borderRadius.appBorderRadius}}",
-  "bottomRow": 49,
+  "bottomRow": 50,
   "dynamicBindingPathList": [
     {
       "key": "truncateButtonColor"
@@ -36,8 +36,8 @@
   "mobileRightColumn": 61,
   "mobileTopRow": 51,
   "needsErrorInfo": false,
-  "originalBottomRow": 49,
-  "originalTopRow": 45,
+  "originalBottomRow": 50,
+  "originalTopRow": 46,
   "overflow": "NONE",
   "parentColumnSpace": 20.25,
   "parentId": "0",
@@ -49,7 +49,7 @@
   "text": "Totale ore: {{ orariFunctions.calcolaTotaleOre(Object.values( appsmith.store.orarioPerDistretto))}}",
   "textAlign": "RIGHT",
   "textColor": "{{appsmith.theme.colors.primaryColor}}",
-  "topRow": 45,
+  "topRow": 46,
   "truncateButtonColor": "{{appsmith.theme.colors.primaryColor}}",
   "type": "TEXT_WIDGET",
   "version": 1,

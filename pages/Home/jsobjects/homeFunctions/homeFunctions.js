@@ -44,7 +44,7 @@ export default {
 			await this.getVariabiliDistretto();    // 4
 			await this.getConvenzionatiMap();      // 5
 			await getDatiVarDistrettoPeriodo.run(); // 6
-			
+
 			// Avvio del controllo periodico del token ogni 5 minuti (es. 300 secondi)
 			this.startVerifyTokenInterval(60 * 5);
 		} catch (err) {
@@ -56,8 +56,8 @@ export default {
 			this.firstLoadingOk = true;
 		}
 	},
-	
-	
+
+
 	/* =======================
 	   FUNZIONE CONTROLLO TOKEN PERIODICO
 	======================= */
@@ -115,14 +115,14 @@ export default {
 	},
 	getRapportoFromId: (id) => {
 		try {
-		return this.allConvenzionatiMap[id.id_conv].RAPPORTO }
+			return this.allConvenzionatiMap[id.id_conv].RAPPORTO }
 		catch (ex) {return "-"}
 	},
 
 	getConvenzionatoDescFromId: id => {
 		try {
-		const conv = this.allConvenzionatiMap[id];
-		return `(${conv.CI}) ${conv.COGNOME} ${conv.NOME} - ${conv.DATA_NAS} - [${conv.RAPPORTO}]`;
+			const conv = this.allConvenzionatiMap[id];
+			return `(${conv.CI}) ${conv.COGNOME} ${conv.NOME} - ${conv.DATA_NAS} - [${conv.RAPPORTO}]`;
 		} catch (ex) {
 			return id;
 		}
@@ -162,7 +162,7 @@ export default {
 			this.allVariabiliMap[v["#"]] = v;
 		});
 	},
-	
+
 	async getCategorieConvenzionatiDaAbilitazioni () {
 		let categorie = [];
 		await getCategoriaSpecAbilitazioni.run();
@@ -551,28 +551,28 @@ export default {
 		/* --------------------------------------------------------
 	   5. Firma
 	   -------------------------------------------------------- */
-/* --------------------------------------------------------
+		/* --------------------------------------------------------
    5. Firme
    -------------------------------------------------------- */
-const pageWidth = doc.internal.pageSize.width;
-const pageHeight = doc.internal.pageSize.height;
+		const pageWidth = doc.internal.pageSize.width;
+		const pageHeight = doc.internal.pageSize.height;
 
-// Coordinate verticali
-const firmaY = pageHeight - 30;
-const firmaY2 = firmaY + 18;
+		// Coordinate verticali
+		const firmaY = pageHeight - 30;
+		const firmaY2 = firmaY + 18;
 
-// Prima riga: due firme, sinistra e destra
-doc.setFontSize(12);
-doc.text("Responsabile del Procedimento", 20, firmaY);
-doc.text("Dirigente Medico", pageWidth - 80, firmaY);
+		// Prima riga: due firme, sinistra e destra
+		doc.setFontSize(12);
+		doc.text("Responsabile del Procedimento", 20, firmaY);
+		doc.text("Dirigente Medico", pageWidth - 80, firmaY);
 
-// Linee per le firme
-doc.line(20, firmaY + 8, 20 + 60, firmaY + 8); // sinistra
-doc.line(pageWidth - 80, firmaY + 8, pageWidth - 20, firmaY + 8); // destra
+		// Linee per le firme
+		doc.line(20, firmaY + 8, 20 + 60, firmaY + 8); // sinistra
+		doc.line(pageWidth - 80, firmaY + 8, pageWidth - 20, firmaY + 8); // destra
 
-// Seconda riga: una firma a destra
-doc.text("Direttore del Distretto", pageWidth - 80, firmaY2);
-doc.line(pageWidth - 80, firmaY2 + 8, pageWidth - 20, firmaY2 + 8); // destra, sotto
+		// Seconda riga: una firma a destra
+		doc.text("Direttore del Distretto", pageWidth - 80, firmaY2);
+		doc.line(pageWidth - 80, firmaY2 + 8, pageWidth - 20, firmaY2 + 8); // destra, sotto
 
 		/* --------------------------------------------------------
 	   6. Salvataggio / restituzione
@@ -593,16 +593,16 @@ doc.line(pageWidth - 80, firmaY2 + 8, pageWidth - 20, firmaY2 + 8); // destra, s
 	======================= */
 
 	doSoftRemove : async () => {
-	if (this.rowToRemove) {
-		await deleteFromRowIndex.run();
-		await getDatiVarDistrettoPeriodo.run();
-		closeModal(modal_conferma_rimozione.name);
-		showAlert("Riga eliminata, elenco aggiornato.", "info");
+		if (this.rowToRemove) {
+			await deleteFromRowIndex.run();
+			await getDatiVarDistrettoPeriodo.run();
+			closeModal(modal_conferma_rimozione.name);
+			showAlert("Riga eliminata, elenco aggiornato.", "info");
 			this.rowToRemove = null;
 		}
 		else 
 			showAlert("Errore nell'eliminazione della riga", "error");
-},
+	},
 	async removeRow(row) {
 		this.rowToRemove = row;
 		showModal(modal_conferma_rimozione.name);
@@ -674,14 +674,14 @@ doc.line(pageWidth - 80, firmaY2 + 8, pageWidth - 20, firmaY2 + 8); // destra, s
 		}
 	},
 	caricaInfoConv : () => {
-				storeValue("infoConvSelezionato", "");
-					icon_info_conv.setVisibility(false);
+		storeValue("infoConvSelezionato", "");
+		icon_info_conv.setVisibility(false);
 		if (convenzionatoSelezionato.selectedOptionValue) { getInfoConvByCf.run({cf:this.allConvenzionatiMap[convenzionatoSelezionato.selectedOptionValue].CODICE_FISCALE }).then((res) => {
 			if (getInfoConvByCf.data.length === 1) {
 				icon_info_conv.setVisibility(true);
 				storeValue("infoConvSelezionato","Indirizzo residenza da sistema TS:<br /><b> " + getInfoConvByCf.data[0].indirizzoResidenza + "</b>");
 			}
-			});
-		}
+		});
+																											}
 	},
 };

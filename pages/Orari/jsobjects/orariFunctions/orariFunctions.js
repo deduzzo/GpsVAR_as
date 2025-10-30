@@ -887,5 +887,72 @@ verificaOrariSingoliOk: (soloOrari = false) => {
 			closeModal(caricamentoMdl.name);
 			showAlert("Nuovo presidio inserito correttamente", "success");
 		});
-	}
+	},
+	eseguiControlloTimbrature: () => {
+		this.eseguiControlliTimbratureAsync();
+	},
+	eseguiControlliTimbratureAsync: async () => {
+		let allOrologiMap = {};
+		await getAllOrologi.run();
+		for (let orologio of getAllOrologi.data) {
+			if (orologio.id !== "")
+				allOrologiMap[orologio.id] = orologio;
+		}
+		let allTimbratureConvenzionatoSelezionato = await getAllTimbratureByCF.run();
+		let orologiMancanti = {};
+		for (let timbratura of allTimbratureConvenzionatoSelezionato) {
+			const rilevatore= timbratura.RILEVATORE !== "" ? timbratura.RILEVATORE: "X";
+			console.log(rilevatore);
+			if (!allOrologiMap.hasOwnProperty(rilevatore)) {
+				if (!orologiMancanti.hasOwnProperty(rilevatore))
+					orologiMancanti[rilevatore] = [];
+				orologiMancanti[rilevatore].push(timbratura);
+			}
+		}
+
+		const risultato = Object.values(orologiMancanti).flat();
+		console.log(risultato);
+		await this.scaricaCSVGenerico(risultato,"timbrature_orologi_mancanti");
+	},
+	/**
+ * Genera un file CSV da un array di oggetti
+ * @param {Array} data - Array di oggetti con struttura chiave-valore
+ * @param {String} nomeFile - Nome del file CSV (senza estensione)
+ */
+generaCSVGenerico: async (data, nomeFile = "export") => {
+    try {
+        if (!Array.isArray(data) || data.length === 0) {
+            showAlert("Nessun dato da esportare", "warning");
+            return null;
+        }
+        
+        const fileName = nomeFile + "_" + moment().format("YYYY-MM-DD_HH_mm");
+        
+        return {
+            data: papaparse.unparse(data, { 
+                header: true, 
+                delimiter: ";", 
+                newline: "\r\n" 
+            }),
+            fileName: fileName
+        };
+        
+    } catch (error) {
+        console.error("Errore generazione CSV:", error);
+        showAlert("Errore durante la generazione del CSV: " + error.message, "error");
+        return null;
+    }
+},
+
+/**
+ * Scarica il file CSV (wrapper)
+ * @param {Array} data - Array di oggetti
+ * @param {String} nomeFile - Nome del file
+ */
+scaricaCSVGenerico: async (data, nomeFile = "export") => {
+    const out = await this.generaCSVGenerico(data, nomeFile);
+    if (out) {
+        download(out.data, out.fileName + ".csv", "text/csv");
+    }
+}
 };

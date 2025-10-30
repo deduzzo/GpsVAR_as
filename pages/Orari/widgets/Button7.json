@@ -11,7 +11,11 @@
       "key": "borderRadius"
     }
   ],
-  "dynamicTriggerPathList": [],
+  "dynamicTriggerPathList": [
+    {
+      "key": "onClick"
+    }
+  ],
   "iconAlign": "left",
   "iconName": "menu-open",
   "isDefaultClickDisabled": true,
@@ -26,6 +30,7 @@
   "mobileRightColumn": 48,
   "mobileTopRow": 58,
   "needsErrorInfo": false,
+  "onClick": "{{orariFunctions.eseguiControlloTimbrature();}}",
   "originalBottomRow": 51,
   "originalTopRow": 47,
   "parentColumnSpace": 20.25,
