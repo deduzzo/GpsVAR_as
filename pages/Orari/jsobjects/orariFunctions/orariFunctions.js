@@ -157,8 +157,13 @@ export default {
 	   CONVENZIONATI ORARI
 	======================= */
 	aggiungiNuovoConvenzionatoBranca: () => {
-		aggiungiConvBranca_btn.setDisabled(true);
+		this.aggiornaEdAggiungiConvenzionato();
+	},
+	
+	aggiornaEdAggiungiConvenzionato: async () => {
+				aggiungiConvBranca_btn.setDisabled(true);
 		showModal(caricamentoMdl.name);
+				await this.getConvenzionatiMap();
 		aggiungiConvenzionatoBranca.run().then(() => {
 			showAlert("Convenzionato inserito correttamente", "info");
 			convenzionato_cmb.setSelectedOption("");
