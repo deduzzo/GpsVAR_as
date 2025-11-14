@@ -56,9 +56,9 @@
           "data": {
             "children": [
               {
-                "condition": "EQ",
+                "condition": "IN",
                 "key": "RAPPORTO",
-                "value": "SPTI"
+                "value": "{{[\"SPTI\", \"PSTI\"]}}"
               }
             ],
             "condition": "AND"
@@ -75,7 +75,11 @@
       "name": "gpsvar_data",
       "pluginId": "google-sheets-plugin"
     },
-    "dynamicBindingPathList": [],
+    "dynamicBindingPathList": [
+      {
+        "key": "formData.where.data.children[0].value"
+      }
+    ],
     "name": "getAllConvenzionati",
     "pageId": "Orari",
     "runBehaviour": "ON_PAGE_LOAD",
