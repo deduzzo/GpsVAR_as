@@ -85,6 +85,7 @@ export default {
 
 	async getDistrettiMap() {
 		const distretti = getAllDistretti.data || [];
+		distretti.push({unique: "fuori",descrizione: "Fuori ASP"});
 		distretti.forEach(d => {
 			this.distrettiMap.byUnique[d.unique] = d;
 			this.distrettiMap.byId[d.old_code] = d;
@@ -184,22 +185,24 @@ export default {
 		this.getAllConvenzionatiConBranca();
 	},
 
-	getAllConvenzionatiConBranca: async () => {
-		getAllConvenzionatiBranche.run().then(() =>{
-			let out = [];
-			this.allConvenzionatiPerBrancaMap = {};
-			for (let riga of (getAllConvenzionatiBranche.data || [])) {
-				if (!this.allConvenzionatiPerBrancaMap.hasOwnProperty(riga.id))
-					this.allConvenzionatiPerBrancaMap[riga.id] = riga;
-				const conv = this.allConvenzionatiMap[riga["id_convenzionato"]] || {};
-				out.push({
-					label: (conv.COGNOME || "") + " " + (conv.NOME || "") + " [" + (riga["branca"] || "") + "]",
-					value: String(riga["id"])
-				});
-			}
-			this.allConvenzionatiList = out;
-		})
-	},
+getAllConvenzionatiConBranca: async () => {
+    getAllConvenzionatiBranche.run().then(() => {
+        let out = [];
+        this.allConvenzionatiPerBrancaMap = {};
+        for (let riga of (getAllConvenzionatiBranche.data || [])) {
+            if (!this.allConvenzionatiPerBrancaMap.hasOwnProperty(riga.id))
+                this.allConvenzionatiPerBrancaMap[riga.id] = riga;
+            const conv = this.allConvenzionatiMap[riga["id_convenzionato"]] || {};
+            out.push({
+                label: (conv.COGNOME || "") + " " + (conv.NOME || "") + " [" + (riga["branca"] || "") + "]",
+                value: String(riga["id"])
+            });
+        }
+        // Ordina alfabeticamente per label
+        out.sort((a, b) => a.label.localeCompare(b.label, 'it'));
+        this.allConvenzionatiList = out;
+    })
+},
 
 	mostraFormNuovoConvenzionato: () => {
 		convenzionato_cmb.setSelectedOption("");

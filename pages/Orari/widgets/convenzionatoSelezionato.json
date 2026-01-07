@@ -17,6 +17,9 @@
     },
     {
       "key": "sourceData"
+    },
+    {
+      "key": "labelText"
     }
   ],
   "dynamicHeight": "FIXED",
@@ -41,7 +44,7 @@
   "key": "5okc8199n1",
   "labelAlignment": "left",
   "labelPosition": "Top",
-  "labelText": "Convenzionato",
+  "labelText": "Convenzionati {{\"(\" + orariFunctions.allConvenzionatiList.length + \")\"}}",
   "labelTextSize": "0.875rem",
   "labelWidth": 5,
   "leftColumn": 5,

@@ -129,12 +129,14 @@ export default {
 	},
 
 	dataCompetenzaCongrua: () => {
-		const dataPeriodo = moment({ year: this.periodo.anno, month: this.periodo.mese, day: 1 });
+		const dataPeriodo = moment({ year: this.periodo.anno, month: this.periodo.mese -1, day: 1 });
 		const dataCompetenza = moment({
 			year: annoCompetenza.selectedOptionValue,
-			month: meseCompetenza.selectedOptionValue,
+			month: meseCompetenza.selectedOptionValue -1,
 			day: 1
 		});
+		console.log(dataPeriodo.toString())
+		console.log(dataCompetenza.toString())
 		return dataCompetenza.isSameOrBefore(dataPeriodo);
 	},
 
